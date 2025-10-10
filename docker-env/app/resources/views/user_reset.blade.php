@@ -22,16 +22,17 @@
         <header>
             <!--ロゴ-->
 
-            <a href="{{ url('/user_login') }}">戻る</a>
+            <a href="{{ route('user.login') }}">戻る</a>
         </header>
 
         <main>
             <h2>パスワード再設定</h2>
-            <form method="POST" action="{{ route('user.login') }}">
+            <form method="POST" action="{{ route('user.sendmail') }}">
                 @csrf
                 <div>
                     <label for="email">メールアドレス</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <span>{{ $errors->first('mail') }}</span>
                 </div>
                 <div>
                     <button type="submit">

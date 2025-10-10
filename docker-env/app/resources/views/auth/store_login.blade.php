@@ -22,7 +22,7 @@
         <header>
             <!--ロゴ-->
 
-            <a href="{{ url('/user_login') }}">一般ユーザログインはこちら</a>
+            <a href="{{ route('user.login') }}">一般ユーザログインはこちら</a>
         </header>
 
         <main>

@@ -22,7 +22,7 @@
         <header>
             <!--ロゴ-->
 
-            <a href="{{ url('/store_login') }}">企業ユーザログインはこちら</a>
+            <a href="{{ route('store.login') }}">企業ユーザログインはこちら</a>
         </header>
 
         <main>

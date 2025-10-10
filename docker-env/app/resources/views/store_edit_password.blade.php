@@ -21,23 +21,25 @@
     <body>
         <header>
             <!--ロゴ-->
-
-            <a href="{{ route('store.login')) }}">戻る</a>
         </header>
 
         <main>
-            <h2>店舗ユーザ<br>パスワード再設定</h2>
-            <form method="POST" action="{{ route('store.sendmail') }}">
+            <h2>パスワード再設定</h2>
+            <form method="POST" action="{{ route('store.update_password') }}">
                 @csrf
                 <div>
-                    <label for="email">メールアドレス</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    <span>{{ $errors->first('mail') }}</span>
+                    <label for="password">新パスワード入力</label>
+                    <input id="password" type="password" name="password" value="" required autofocus>
+                    <span>{{ $errors->first('password') }}</span>
+                    <span>{{ $errors->first('reset_token') }}</span>
                 </div>
-
+                <div>
+                    <label>新パスワード<span>確認</span></label>
+                    <input type="password" name="password_confirmation" value="">
+                </div>
                 <div>
                     <button type="submit">
-                        メールを送信
+                        パスワードを再設定する。
                     </button>
 
                 </div>
