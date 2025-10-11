@@ -21,4 +21,21 @@ interface UserRepositoryInterface
      * @return User
      */
     public function updateOrCreateUser(int $userId): User;
+
+    /**
+     * トークンからユーザー情報を取得
+     *
+     * @param string $token
+     * @return User
+     */
+    public function getUserTokenFromUser(string $token): User;
+
+    /**
+     * ユーザーのパスワードを更新
+     *
+     * @param int $userId
+     * @param string $newPassword
+     * @return void
+     */
+    public function updateUserPassword(int $userId, string $newPassword): void;
 }

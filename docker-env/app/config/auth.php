@@ -74,18 +74,13 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-            "query" => function ($query) {
-                $query->where('role', '1');
-            },
         ],
 
         'stores' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-            "query" => function ($query) {
-                $query->where('role', '0');
-            },
-        ],
+        
+         ],
 
         // 'users' => [
         //     'driver' => 'database',

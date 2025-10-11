@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\RoleLoginController;   
+use App\Http\Controllers\PasswordResetController;
 
 
 
@@ -50,7 +51,7 @@ Route::resource('users', UserController::class);
 // 一般ユーザー権限
 Route::group(['middleware' => 'user.auth'], function() {
 
-    Route::post('/user_login', [UserLoginController::class, 'login'])->name('user.login');
+    Route::post('/user_login', [UserLoginController::class, 'login'])->name('user.login.submit');
     Route::post('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
     
 });
