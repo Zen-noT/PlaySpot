@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\RoleLoginController;   
 use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\ShopController;
 
 
 
@@ -53,6 +54,12 @@ Route::group(['middleware' => 'user.auth'], function() {
 
     Route::post('/user_login', [UserLoginController::class, 'login'])->name('user.login.submit');
     Route::post('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+
+    Route::get('/search', function () {return view('search');})->name('user.search');
+    Route::resource('shops', ShopController::class);
+    Route::get('/shops/detail/{shop}', [ShopController::class, 'shop_detail'])->name('shops.detail');
+    //ajax
+    Route::get('/shops/evaluation_create', [ShopController::class, 'evaluation_create'])->name('shops.evaluation_create');
     
 });
 

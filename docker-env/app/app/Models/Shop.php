@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
-    public function evaluation(){
-        return $this->hasMany(Evaluation::class);
-    }
+    
     
     // public function mylist(){
     //     return $this->belongsToMany(Mylist::class);
     // }
 
 
+    public function evaluation(){
+        return $this->hasMany(Evaluation::class);
+    }
 
     public function businesshour(){
         return $this->hasMany(Businesshour::class);

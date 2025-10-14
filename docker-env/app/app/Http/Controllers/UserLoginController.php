@@ -9,7 +9,7 @@ use App\Models\User;
 class UserLoginController extends Controller
 {
     public function showLoginForm(){
-        return view('auth.user_login');
+        return view('search');
     }
 
     public function login(Request $request){

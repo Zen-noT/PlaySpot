@@ -6,11 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token　（セキュリティ） -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        
 
         <title>{{ config('app.name', 'larabel') }}</title>
 
+        <!-- jQuery読み込み -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/ajax.js') }}" defer></script>
          <!-- 読み込み高速化 -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <!-- グーグル提供のフォント -->
@@ -22,22 +27,19 @@
         
         <header>
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ route('user.search') }}">
 
                     ロゴ（後で差し替え）
 
 
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
             </div>
             <div class="my-navbar-control">
                 @if(Auth::check())
                     <span>{{ Auth::user()->name }}</span>
 
                     <a href="#" id="logout"> ログアウト</a>
-                    <form id="logout-form" action="{{ route('') }}" method="POST" style="display: none;">
+                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
                     <script>
@@ -49,7 +51,6 @@
                 @endif
             </div>
         </header>
-
          <!-- バリデーションエラーの表示 -->
         <div class='panel-body'>
             @if($errors->any())
@@ -63,7 +64,6 @@
             </div>
             @endif
         </div>
-
 
         @yield('content')
             
