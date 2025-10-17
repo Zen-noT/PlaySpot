@@ -31,8 +31,6 @@ class UserLoginController extends Controller
 
             $user = Auth::guard('members')->user();
 
-            //Auth::guard('user')->login($user);
-
         
             if($user && $user->role == 1){
 

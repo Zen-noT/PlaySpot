@@ -60,7 +60,9 @@ Route::prefix('reset')->group(function () {
 Route::group(['middleware' => 'auth.members:members'], function() {
 
     Route::get('/search', function () {return view('search');})->name('user.search');
+    Route::get('/mypage', function () {return view('mypage');})->name('user.mypage');
     Route::get('/shops', [ShopController::class, 'index'])->name('shops.search');
+
 
     Route::get('/shops/detail/{shop}', [ShopController::class, 'shop_detail'])->name('shops.detail');
     //ajax

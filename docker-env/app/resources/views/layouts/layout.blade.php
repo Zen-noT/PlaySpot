@@ -37,6 +37,10 @@
             <div class="my-navbar-control">
                 @if(Auth::check())
                     <span>{{ Auth::user()->name }}</span>
+                    <a href="{{ route('user.mypage') }}">
+                        <img src="{{asset('storage/images/' . Auth::user()->icon )}}" >
+                    </a>
+                    
 
                     <a href="#" id="logout"> ログアウト</a>
                     <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">

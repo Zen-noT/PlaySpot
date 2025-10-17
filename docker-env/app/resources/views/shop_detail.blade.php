@@ -36,8 +36,9 @@
     </div>
 
     <div>
-        //APIで取得した地図
-        
+        <!-- APIで取得した地図 -->
+        <iframe id='map' src='https://www.google.com/maps/embed/v1/place?key={{ config("services.google-map.apikey") }}&q={{ $shop->address }}'
+            width='50%' height='300' frameborder='0'></iframe>
     </div>
 
     <div>
@@ -65,6 +66,7 @@
         <h3>レビュー一覧</h3>
 
         @if($evaluations->isEmpty())
+        <!-- @if($shop->evaluation->isEmpty()) -->
             <p>まだレビューがありません。</p>
         @else
             @foreach($shop->evaluation as $evaluation)
