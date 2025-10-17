@@ -2,23 +2,23 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
+// use Closure;
+// use Illuminate\Support\Facades\Auth;
 
-class UserMiddleware
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+
+class UserMiddleware extends Middleware
 {
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @return string|null
+     * 
      */
-    public function handle($request, Closure $next){
 
-        if(!Auth::check() && Auch::user()->role !== "1"){
-            return redirect('/user_login');
-        }
+    protected function redirectTo($request){
 
-        return $next($request);
+        return route('user.login');
     }
 }

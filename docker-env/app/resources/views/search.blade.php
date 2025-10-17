@@ -3,7 +3,7 @@
 
 <main>
     <h2>検索画面</h2>
-    <form action="/shops" method="GET">
+    <form action="{{route('shops.search')}}" method="GET">
         @csrf
         <div>
             <label for="location">ロケーションを入力</label>

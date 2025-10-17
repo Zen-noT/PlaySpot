@@ -2,37 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class UserLoginController extends Controller
 {
+    
     public function showLoginForm(){
-        return view('search');
+        // if (Auth::guard('members')->check()) {
+        //     return redirect('/search'); 
+        // }
+        return view('auth.user_login');
     }
 
+    //ログイン処理
     public function login(Request $request){
 
         $credentials = $request->only('email', 'password');
 
-        if(Auth::guard('user')->attempt($credentials)){
+        //dd(Auth::guard('user')->check(), session()->all()); // 認証状態とセッション内容を確認
 
-            $user = Auth::user();
 
-            if($user->role === "1"){
-                return redirect()->intended('/search');
+        if(Auth::guard('members')->attempt($credentials)){
+
+            $user = Auth::guard('members')->user();
+
+            //Auth::guard('user')->login($user);
+
+        
+            if($user && $user->role == 1){
+
+                return redirect()->route('user.search');
+                //return redirect('/search');
+
             }else{
-                Auth::logout();
-                return redirect('/user_login')->withErrors(['error' => '無効なユーザー権限です。']);
+                Auth::guard('members')->logout();
+                return redirect()->route('user.login')->withErrors(['error' => '無効なユーザー権限です。']);
             }
         }
+        
 
-        return redirect('/user_login')->withErrors(['error' => '無効なな承認情報です。']);
+        //return redirect('/login/user')->withErrors(['error' => '無効なな承認情報です。'])->withInput();
     }
 
-    public function logout(){
-        Auth::guard('user')->logout();
-        return redirect('/user_login');
+    public function logout(Request $request){
+
+        Auth::guard('members')->logout();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('user.login')->with(['auth' => ['ログアウトしました'],]);
     }
 }

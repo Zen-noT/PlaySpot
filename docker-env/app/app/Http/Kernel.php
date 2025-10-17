@@ -51,7 +51,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
+
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -62,8 +62,12 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        'role' => \App\Http\Middleware\RoleMiddleware::class,
-        'user' => \App\Http\Middleware\UserMiddleware::class,
+        // 'role.auth' => \App\Http\Middleware\RoleMiddleware::class,
+        // 'user.auth' => \App\Http\Middleware\UserMiddleware::class,
+
+        //承認ミドルウェア
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.members' => \App\Http\Middleware\UserMiddleware::class,
     ];
 
     /**

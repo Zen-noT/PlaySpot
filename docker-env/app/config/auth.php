@@ -40,17 +40,22 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'members' => [
+        'driver' => 'session',
+        'provider' => 'users',
+        ],
         
-        'store' => [
+        'stores' => [
             'driver' => 'session',
-            'provider' => 'stores',
+            'provider' => 'users',
         ],
 
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
+        // 'api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
     ],
 
     /*
@@ -71,21 +76,22 @@ return [
     */
 
     'providers' => [
+
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         ],
 
         'stores' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
         
-         ],
+        ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
     ],
 
     /*
@@ -109,6 +115,13 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+
+        'stores' => [
+        'provider' => 'stores',
+        'table' => 'password_resets',
+        'expire' => 60,
+        'throttle' => 60,
         ],
     ],
 

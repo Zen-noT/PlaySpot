@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\RepositoryServiceProvider::class, //-------------------------------追加
+        Laravel\Sanctum\SanctumServiceProvider::class,
+
 
     ],
 

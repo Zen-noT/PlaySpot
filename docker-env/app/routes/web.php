@@ -7,14 +7,22 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\RoleLoginController;   
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ShopController;
+use Illuminate\Support\Facades\Auth;
 
 
 
+//ログイン画面
+Route::get('/user_login', [UserLoginController::class, 'showLoginForm'])->name('user.login');
 
-//共通
-Route::get('/', function () {return view('auth.user_login');});
-Route::get('/login/user', [UserLoginController::class, 'showLoginForm'])->name('user.login');
-Route::get('/login/store', [RoleLoginController::class, 'showLoginForm'])->name('store.login');
+Route::post('/user_login', [UserLoginController::class, 'login'])->name('user.login.submit');
+Route::post('/logout/user', [UserLoginController::class, 'logout'])->name('user.logout');
+
+
+Route::get('/store_login', [RoleLoginController::class, 'showLoginForm'])->name('store.login');
+
+Route::post('/store_login', [RoleLoginController::class, 'login'])->name('store.login.submit');
+Route::post('/logout/store', [RoleLoginController::class, 'logout'])->name('store.logout');
+
 
 Route::prefix('create')->group(function () {
     // 新規登録画面
@@ -47,16 +55,13 @@ Route::prefix('reset')->group(function () {
     Route::get('/store/password/complete', function () {return view('store_password_complete');})->name('store.password_complete');
 });
 
-Route::resource('users', UserController::class);
 
 // 一般ユーザー権限
-Route::group(['middleware' => 'user.auth'], function() {
-
-    Route::post('/user_login', [UserLoginController::class, 'login'])->name('user.login.submit');
-    Route::post('/logout', [UserLoginController::class, 'logout'])->name('user.logout');
+Route::group(['middleware' => 'auth.members:members'], function() {
 
     Route::get('/search', function () {return view('search');})->name('user.search');
-    Route::resource('shops', ShopController::class);
+    Route::get('/shops', [ShopController::class, 'index'])->name('shops.search');
+
     Route::get('/shops/detail/{shop}', [ShopController::class, 'shop_detail'])->name('shops.detail');
     //ajax
     Route::get('/shops/evaluation_create', [ShopController::class, 'evaluation_create'])->name('shops.evaluation_create');
@@ -64,10 +69,9 @@ Route::group(['middleware' => 'user.auth'], function() {
 });
 
 // 店舗ユーザー権限
-Route::group(['middleware' => 'role.auth'], function(){
+Route::group(['middleware' => 'auth:stores'], function(){
 
-    Route::post('/store_login', [RoleLoginController::class, 'login'])->name('store.login');
-    Route::post('/logout', [RoleLoginController::class, 'logout'])->name('store.logout');
+
 
 });
 

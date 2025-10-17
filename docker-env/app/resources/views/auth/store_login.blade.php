@@ -27,7 +27,7 @@
 
         <main>
             <h2>ログイン</h2>
-            <form method="POST" action="{{ route('store.login') }}">
+            <form method="POST" action="{{ route('store.login.submit') }}">
                 @csrf
                 <div>
                     <label for="email">メールアドレス</label>

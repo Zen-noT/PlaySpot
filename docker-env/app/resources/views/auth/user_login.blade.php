@@ -27,16 +27,16 @@
 
         <main>
             <h2>ログイン</h2>
-            <form method="POST" action="{{ route('user.login.submit') }}">
+            <form action="{{ route('user.login.submit') }}" method="POST">
                 @csrf
                 <div>
                     <label for="email">メールアドレス</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required  autofocus>
                 </div>
 
                 <div>
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" name="password" required autocomplete="current-password">
+                    <input id="password" type="password" name="password" required >
                 </div>
 
                 <div>
@@ -48,6 +48,7 @@
                     <a href="{{ route('user.reset') }}">パスワードを忘れた場合はこちら</a>
 
                 </div>
+            </form>
         </main>
 
     </body>
