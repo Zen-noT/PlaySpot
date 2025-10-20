@@ -57,5 +57,6 @@
                         新規登録
                     </button>
                 </div>
+            </form>    
     </body>
 </html>

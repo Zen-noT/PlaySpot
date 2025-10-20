@@ -18,8 +18,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         //
     }
 
@@ -104,9 +103,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function user_update(Request $request, $id){
+        //画像消去忘れずに
+        $user = new User;
+        $record = $user->find(Auth::user()->id);
+
+        
+
     }
 
     /**
@@ -115,7 +118,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function user_delete($id)
     {
         //
     }

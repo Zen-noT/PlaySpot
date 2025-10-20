@@ -38,7 +38,7 @@
                 @if(Auth::check())
                     <span>{{ Auth::user()->name }}</span>
                     <a href="{{ route('user.mypage') }}">
-                        <img src="{{asset('storage/images/' . Auth::user()->icon )}}" >
+                        <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="100" height="100">
                     </a>
                     
 

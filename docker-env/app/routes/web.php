@@ -60,8 +60,14 @@ Route::prefix('reset')->group(function () {
 Route::group(['middleware' => 'auth.members:members'], function() {
 
     Route::get('/search', function () {return view('search');})->name('user.search');
-    Route::get('/mypage', function () {return view('mypage');})->name('user.mypage');
     Route::get('/shops', [ShopController::class, 'index'])->name('shops.search');
+    Route::get('/mypage', function () {return view('mypage');})->name('user.mypage');
+
+    Route::get('/user/update', function () {return view('profile_edit');})->name('user.update');
+    Route::post('/user/update', [UserController::class, 'user_update'])->name('user.update.submit');
+
+    Route::get('/user/deleate', function () {return view('user_deleate');})->name('user.deleate');
+    Route::post('/user/deleate', [UserController::class, 'user_delete'])->name('user.delete.submit');
 
 
     Route::get('/shops/detail/{shop}', [ShopController::class, 'shop_detail'])->name('shops.detail');
