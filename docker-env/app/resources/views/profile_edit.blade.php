@@ -29,6 +29,7 @@
             <textarea id="profile" name="profile"  autocomplete="profile" autofocus>{{ old('profile') }}</textarea>
         </div>
 
+
         <div>
             <button type="submit">
                 変更

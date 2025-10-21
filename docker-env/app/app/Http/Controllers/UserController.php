@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 use App\Models\User;
@@ -103,13 +105,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function user_update(Request $request, $id){
-        //画像消去忘れずに
+    public function user_update(Request $request){
+        
         $user = new User;
         $record = $user->find(Auth::user()->id);
 
-        
+        $record->name  = $request->name;
+        $record->email = $request->email;
+        $record->password = $request->password;
+        $record->profile = $request->profile;
 
+        if($request->hasFile('icon_image')){
+
+            Storage::delete('public/images/'. $record->icon);
+            $path = $request->file('icon_image')->store('public/images/');
+            $record->icon = basename($path);
+            $record->save();
+        }
+
+        $record->fill($request->except('icon_image'))->save();
+
+
+        return redirect()->route('user.mypage')->with('flash_message', '編集が完了しました');
     }
 
     /**
@@ -118,8 +135,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function user_delete($id)
+    public function user_delete()
     {
-        //
+        $user = new User;
+        $record = $user->find(Auth::user()->id);
+
+            Storage::delete('public/images/'. $record->icon);
+
+        $record->delete();
+
+        return redirect()->route('user.login')->with('flash_message', 'ユーザーを消去しました');
     }
 }

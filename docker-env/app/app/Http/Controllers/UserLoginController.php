@@ -13,9 +13,9 @@ class UserLoginController extends Controller
 {
     
     public function showLoginForm(){
-        // if (Auth::guard('members')->check()) {
-        //     return redirect('/search'); 
-        // }
+        if (Auth::guard('members')->check()) {
+            return redirect('/search'); 
+        }
         return view('auth.user_login');
     }
 
@@ -44,7 +44,7 @@ class UserLoginController extends Controller
         }
         
 
-        //return redirect('/login/user')->withErrors(['error' => '無効なな承認情報です。'])->withInput();
+        return redirect('/login/user')->withErrors(['error' => '無効なな承認情報です。'])->withInput();
     }
 
     public function logout(Request $request){

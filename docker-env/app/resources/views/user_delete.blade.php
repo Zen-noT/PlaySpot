@@ -13,9 +13,11 @@
             </button>
         </div>
     </form>
+
     <a href="{{ route('user.mypage') }}">
         戻る
     </a>    
+    
 </main>
 
 

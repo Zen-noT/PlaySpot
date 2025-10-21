@@ -34,7 +34,7 @@ class RoleLoginController extends Controller
             }
         }
 
-        //return redirect('/store_login')->withErrors(['error' => '無効なな承認情報です。']);
+        return redirect('/store_login')->withErrors(['error' => '無効なな承認情報です。']);
     }
 
     public function logout(){

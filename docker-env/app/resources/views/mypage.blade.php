@@ -13,7 +13,7 @@
         <a href="{{ route('user.update') }}">
             ユーザー情報を編集
         </a>
-        <a href="{{ route('user.deleate') }}">
+        <a href="{{ route('user.delete') }}">
             アカウントを消去
         </a>
         
