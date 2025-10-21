@@ -85,6 +85,18 @@ class ShopController extends Controller
         ]);
     }
 
+    public function wait_time_update(Request $request){
+
+        $shop = Waitingtime::where('shop_id', $request->shopId)->first();
+
+        $shop->waiting_img = $request->wait_img;
+        $shop->waiting_time = $request->wait_time;
+
+        $shop->save();
+        
+        return view('store_mangement');
+    }
+
 
 
     /**
@@ -92,9 +104,22 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function shop_create(Request $request){
+        $shop = new Shop;
+
+        $shop_img = $request->file('shop_img')->store('public/images/');
+        $shop->shop_img = basename($shop_img);
+
+
+        $shop->shop_name = $request->shop_name;
+        $shop->address = $request->address;
+        $shop->url = $request->url;
+        $shop->tell = $request->tell;
+        $shop->station = $request->station;
+
+        $shop->save();
+
+        return view('store_mangement');
     }
 
     /**
@@ -114,9 +139,14 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function show(Shop $shop)
-    {
-        //
+    public function show_management(){
+
+        $user = Auth::guard('stores')->user();
+
+        $shops = Shop::where('admin_user', $user->id)->withAvg('evaluations', 'evaluation')->get();
+
+        return view('store_mangement', ['shops' => $shops]);
+
     }
 
     /**
@@ -125,9 +155,10 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shop $shop)
-    {
-        //
+    public function edit(Request $request){
+        $shopId = $request->shopId;
+
+        return view('store_mangement', ['shopId' => $shopId]);
     }
 
     /**
@@ -137,9 +168,36 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Shop $shop)
-    {
-        //
+    public function shop_update(Request $request){
+
+        $shop = Shop::find($request->shopId);
+
+        $shop->shop_name = $request->shop_name;
+        $shop->address = $request->address;
+        $shop->url = $request->url;
+        $shop->tell = $request->tell;
+        $shop->station = $request->station;
+
+        if($request->hasFile('shop_img')){
+
+            Storage::delete('public/images/'. $shop->shop_img);
+
+            $path = $request->file('shop_img')->store('public/images/');
+            $shop->shop_img = basename($path);
+        }
+
+        $shop->save();
+
+
+        return redirect()->route('store.management')->with('flash_message', '編集が完了しました');
+        
+    }
+
+    public function shop_delete_form(Request $request){
+
+        $shopId = $request->shopId;
+
+        return view('shop_delete', ['shopId' => $shopId]);
     }
 
     /**
@@ -148,8 +206,14 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Shop $shop)
-    {
-        //
+    public function shop_destroy(){
+        
+        $shop = Shop::find($request->shopId);
+
+        Storage::delete('public/images/'. $shop->shop_img);
+
+        $shop->delete();
+
+        return view('store_mangement');
     }
 }

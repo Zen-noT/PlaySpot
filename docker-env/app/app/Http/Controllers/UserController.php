@@ -118,12 +118,12 @@ class UserController extends Controller
         if($request->hasFile('icon_image')){
 
             Storage::delete('public/images/'. $record->icon);
+
             $path = $request->file('icon_image')->store('public/images/');
             $record->icon = basename($path);
-            $record->save();
         }
 
-        $record->fill($request->except('icon_image'))->save();
+        $record->save();
 
 
         return redirect()->route('user.mypage')->with('flash_message', '編集が完了しました');
@@ -135,15 +135,27 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function user_delete()
-    {
-        $user = new User;
-        $record = $user->find(Auth::user()->id);
+    public function user_delete(){
+        
+        $user = Auth::user();
 
-            Storage::delete('public/images/'. $record->icon);
+        Storage::delete('public/images/'. $user->icon);
 
-        $record->delete();
+        $user->delete();
+
+        Auth::logout();
 
         return redirect()->route('user.login')->with('flash_message', 'ユーザーを消去しました');
+    }
+
+    public function store_delete(){
+        
+        $user = Auth::user();
+
+        $user->delete();
+
+        Auth::logout();
+
+        return redirect()->route('store.login')->with('flash_message', 'ユーザーを消去しました');
     }
 }

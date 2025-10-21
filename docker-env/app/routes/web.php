@@ -79,13 +79,23 @@ Route::group(['middleware' => 'auth.members:members'], function() {
 // 店舗ユーザー権限
 Route::group(['middleware' => 'auth:stores'], function(){
 
-    Route::get('/store/management', function () {return view('store_management');})->name('store.management');
+    Route::get('/store/management', [ShopController::class, 'show_management'])->name('store.management');
 
     Route::get('/shop/create', function () {return view('shop_create');})->name('shop.create');
     Route::post('/shop/create', [ShopController::class, 'shop_create'])->name('shop.create.submit');
 
-    Route::get('/store/delete', function () {return view('store.delete');})->name('store.delete');
+    Route::get('/store/delete', function () {return view('store_delete');})->name('store.delete');
     Route::post('/store/delete', [UserController::class, 'store_delete'])->name('store.delete.submit');
+
+    Route::post('/shop/waittime/submit', [ShopController::class, 'wait_time_update'])->name('wait.time.submit');
+
+    Route::get('/shop/edit', [ShopController::class, 'edit'])->name('shop.edit');
+    Route::post('/shop/edit', [ShopController::class, 'shop_update'])->name('shop.edit.submit');
+
+    Route::get('/shop/delete', [ShopController::class, 'shop_delete_form'])->name('shop.delete');
+    Route::post('/shop/delete', [ShopController::class, 'shop_destroy'])->name('shop.delete.submit');
+
+
 
 
 });

@@ -39,7 +39,7 @@
             @foreach($shops as $shop)
                 <div>
                     <div>
-                        <img src="{{asset('storage/images' . $shop->shop_img)}}" >
+                        <img src="{{asset('storage/images/' . $shop->shop_img)}}" >
                     </div>
 
                     <a href="{{route('shops.detail',['shop'=> $shop->id ]) }}">
