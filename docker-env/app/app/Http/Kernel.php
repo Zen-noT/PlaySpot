@@ -67,6 +67,8 @@ class Kernel extends HttpKernel
 
         //承認ミドルウェア
         'auth' => \App\Http\Middleware\Authenticate::class,
+
+        'auth.stores' => \App\Http\Middleware\StoreAuthMiddleware::class,
         'auth.members' => \App\Http\Middleware\UserMiddleware::class,
     ];
 

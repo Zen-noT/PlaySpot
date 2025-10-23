@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth.members:members'], function() {
 });
 
 // 店舗ユーザー権限
-Route::group(['middleware' => 'auth:stores'], function(){
+Route::group(['middleware' => 'auth.stores:web'], function(){
 
     Route::get('/store/management', [ShopController::class, 'show_management'])->name('store.management');
 
@@ -94,9 +94,6 @@ Route::group(['middleware' => 'auth:stores'], function(){
 
     Route::get('/shop/delete', [ShopController::class, 'shop_delete_form'])->name('shop.delete');
     Route::post('/shop/delete', [ShopController::class, 'shop_destroy'])->name('shop.delete.submit');
-
-
-
 
 });
 

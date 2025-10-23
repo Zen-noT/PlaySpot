@@ -2,21 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-//use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    //use HasApiTokens, HasFactory, Notifiable;
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     protected $fillable = [
-    'name', 'email', 'password', 'profile', 'icon',
-];
+        'name', 'email', 'password', 'profile', 'icon', 'role',
+    ];
+
+    protected $hidden = ['password'];
+
+    public function isStore()
+    {
+        return $this->role == '0';
+    }
+
+    public function isUser()
+    {
+        return $this->role == '1';
+    }
 
 
 
@@ -40,7 +48,7 @@ class User extends Authenticatable
 
     
 
-    protected $hidden = ['password'];
+    
 
 
 }

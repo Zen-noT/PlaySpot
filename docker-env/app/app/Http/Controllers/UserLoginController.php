@@ -13,6 +13,7 @@ class UserLoginController extends Controller
 {
     
     public function showLoginForm(){
+
         if (Auth::guard('members')->check()) {
             return redirect('/search'); 
         }
@@ -24,14 +25,12 @@ class UserLoginController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        //dd(Auth::guard('user')->check(), session()->all()); // 認証状態とセッション内容を確認
-
-
         if(Auth::guard('members')->attempt($credentials)){
+
+            //dd(Auth::guard('members')->check(), session()->all()); // 認証状態とセッション内容を確認
 
             $user = Auth::guard('members')->user();
 
-        
             if($user && $user->role == 1){
 
                 return redirect()->route('user.search');

@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'stores',
         ],
 
         'members' => [
@@ -48,7 +48,7 @@ return [
         
         'stores' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'stores',
         ],
 
         // 'api' => [
