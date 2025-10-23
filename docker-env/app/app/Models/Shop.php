@@ -20,9 +20,10 @@ class Shop extends Model
     // public function mylist(){
     //     return $this->belongsToMany(Mylist::class);
     // }
+    
 
 
-    public function evaluation(){
+    public function evaluations(){
         return $this->hasMany(Evaluation::class);
     }
 

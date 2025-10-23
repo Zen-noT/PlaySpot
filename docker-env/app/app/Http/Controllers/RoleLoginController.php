@@ -27,32 +27,32 @@ class RoleLoginController extends Controller
     //ログイン処理
     public function login(Request $request){
 
-        $credentials = $request->only('email', 'password');
+        //$credentials = $request->only('email', 'password');
 
-        Auth::shouldUse('web');
-
-        if(Auth::guard('web')->attempt($credentials)){
-
-            Auth::shouldUse('web');
-
-            //dd(session()->all());
-
-            //dd(Auth::guard('web')->check(), session()->all()); // 認証状態とセッション内容を確認
-
-            //dd(Auth::guard()->getName());
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
 
-            $user = Auth::guard('web')->user();
+        //if(Auth::guard('web')->attempt($credentials)){
+        if (Auth::attempt(array_merge($credentials, ['role' => '0']))) {
 
-            if($user && $user->role === "0"){
+            $request->session()->regenerate();
+            return redirect()->intended(route('store.management')); 
 
-                return redirect()->intended(route('store.management'));   
+
+            // $user = Auth::guard('web')->user();
+
+            // if($user && $user->role === "0"){
+
+            //     return redirect()->intended(route('store.management'));   
                 
                 
-            }else{
-                Auth::guard('web')->logout();
-                return redirect()->route('store.login')->withErrors(['error' => '無効なユーザー権限です。']);
-            }
+            // }else{
+            //     Auth::guard('web')->logout();
+            //     return redirect()->route('store.login')->withErrors(['error' => '無効なユーザー権限です。']);
+            // }
         }
 
         return redirect('/store_login')->withErrors(['error' => '無効なな承認情報です。']);

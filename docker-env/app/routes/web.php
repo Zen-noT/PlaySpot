@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth.members:members'], function() {
 });
 
 // 店舗ユーザー権限
-Route::group(['middleware' => 'auth.stores:web'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/store/management', [ShopController::class, 'show_management'])->name('store.management');
 

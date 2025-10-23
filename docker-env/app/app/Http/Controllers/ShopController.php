@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Shop;
+use App\Models\Shop;
 use Illuminate\Http\Request;
 use App\Evaluation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -141,11 +143,19 @@ class ShopController extends Controller
      */
     public function show_management(){
 
-        $user = Auth::guard('stores')->user();
+        //$user = Auth::guard('stores')->user();
+        $user = Auth::user(); 
 
-        $shops = Shop::where('admin_user', $user->id)->withAvg('evaluations', 'evaluation')->get();
 
-        return view('store_mangement', ['shops' => $shops]);
+        //$shops = Shop::where('admin_user', $user->id)->withAvg('evaluations', 'evaluation')->get();
+        $shops = Shop::where('admin_user', $user->id)
+        ->withCount([
+            'evaluations as evaluations_avg_evaluation' => function ($query) {
+                $query->select(DB::raw('coalesce(avg(evaluation), 0)'));
+            }
+        ])->get();
+
+        return view('store_management', ['shops' => $shops]);
 
     }
 
