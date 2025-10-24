@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Waitingtime extends Model
 {
     public function shop(){
-        return $this->hasOne('App\Shop');
+        return $this->hasMany('App\Shop');
     }
 }

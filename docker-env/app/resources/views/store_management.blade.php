@@ -18,7 +18,7 @@
                 <div>
                     <div>
                         <div>
-                            <img src="{{asset('storage/images/' . $shop->shop_img)}}" >
+                            <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="200" height="200">
                         </div>
 
                         <h2>{{ $shop->shop_name }}</h2>

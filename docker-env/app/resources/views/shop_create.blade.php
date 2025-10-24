@@ -33,6 +33,15 @@
         </div>
 
         <div>
+            <p>お店のジャンル
+                <input type="checkbox" name="karaoke" value="1">カラオケ
+                <input type="checkbox" name="darts" value="1">ダーツ
+                <input type="checkbox" name="bouling" value="1">ボーリング
+                <input type="checkbox" name="billiards" value="1">ビリヤード
+            </p>
+        </div>
+
+        <div>
             <button type="submit">
                 店舗登録
             </button>

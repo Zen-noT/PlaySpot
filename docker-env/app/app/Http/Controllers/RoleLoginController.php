@@ -14,9 +14,9 @@ class RoleLoginController extends Controller
 
     public function showLoginForm(){
 
-        // if (Auth::guard('web')->check()) {
-        //     return redirect('/'); 
-        // }
+        if (Auth::check()) {
+            return redirect('/store/management'); 
+        }
         //dd(session()->all(), Auth::guard('web')->check(), Auth::getDefaultDriver());
         
         

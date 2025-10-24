@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 use App\Evaluation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 class ShopController extends Controller
 {
@@ -22,7 +25,7 @@ class ShopController extends Controller
         $genre = $request->input('genre');
         $congestion = $request->input('congestion');
 
-        $query = Shop::query();
+        $query = Shop::query()->join('genres', 'shops.genre_id', '=', 'genres.id')->select('shops.*');
 
         if ($location) {
             $query->where('address', 'like', '%' . $location . '%');
@@ -53,7 +56,13 @@ class ShopController extends Controller
 
 
         
-        $shops = $query->withAvg('evaluations', 'evaluation')->get();
+        //$shops = $query->withAvg('evaluations', 'evaluation')->get();
+        $shops = $query->with('evaluations')->get();
+
+        foreach ($shops as $shop) {
+            $shop->evaluations_avg = $shop->evaluations->avg('evaluation');
+        }
+    
 
 
         return view('search_results', [ 'shops' => $shops]);
@@ -107,6 +116,7 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function shop_create(Request $request){
+
         $shop = new Shop;
 
         $shop_img = $request->file('shop_img')->store('public/images/');
@@ -118,10 +128,42 @@ class ShopController extends Controller
         $shop->url = $request->url;
         $shop->tell = $request->tell;
         $shop->station = $request->station;
+        $shop->admin_user = Auth::id();
+
+        $genre = new Genre();
+
+        if ($request->karaoke == '1') {
+            $genre->karaoke = '1';
+        }elseif($request->karaoke !== '1'){
+            $genre->karaoke = '0';
+        }
+
+        if ($request->darts == '1') {
+            $genre->darts = '1';
+        } elseif($request->darts !== '1'){
+            $genre->darts = '0';
+        }
+
+        if ($request->bouling == '1') {
+            $genre->bouling = $request->bouling;
+        } elseif($request->bouling !== '1'){
+            $genre->bouling = '0';
+        }
+
+        if ($request->billiards == '1') {
+            $genre->billiards = $request->billiards;
+        } elseif($request->billiards !== '1'){
+            $genre->billiards = '0';
+        }
+        $genre->save();
+
+        $shop->genre_id = $genre->id;
 
         $shop->save();
 
-        return view('store_mangement');
+        $shops = Shop::all();
+
+        return view('store_management', ['shops' => $shops]);
     }
 
     /**
@@ -167,8 +209,10 @@ class ShopController extends Controller
      */
     public function edit(Request $request){
         $shopId = $request->shopId;
+        $shop = Shop::findOrFail($shopId);
+        $genre = Genre::find($shop->genre_id);
 
-        return view('store_mangement', ['shopId' => $shopId]);
+        return view('shop_edit', ['shopId' => $shopId,'shop' =>$shop,'genre'=> $genre]);
     }
 
     /**
@@ -196,10 +240,39 @@ class ShopController extends Controller
             $shop->shop_img = basename($path);
         }
 
+        $genre = Genre::find($shop->genre_id);
+
+        if ($request->karaoke == '1') {
+            $genre->karaoke = 1;
+        } else {
+            $genre->karaoke = 0;
+        }
+
+        if ($request->darts == '1') {
+            $genre->darts = 1;
+        } else {
+            $genre->darts = 0;
+        }
+
+        if ($request->bouling == '1') {
+            $genre->bouling = 1;
+        } else {
+            $genre->bouling = 0;
+        }
+
+        if ($request->billiards == '1') {
+            $genre->billiards = 1;
+        } else {
+            $genre->billiards = 0;
+        }
+
+        $genre->save();
         $shop->save();
 
 
-        return redirect()->route('store.management')->with('flash_message', '編集が完了しました');
+        $shops = Shop::all();
+
+        return view('store_management', ['shops' => $shops]);
         
     }
 
@@ -216,7 +289,7 @@ class ShopController extends Controller
      * @param  \App\Shop  $shop
      * @return \Illuminate\Http\Response
      */
-    public function shop_destroy(){
+    public function shop_destroy(Request $request){
         
         $shop = Shop::find($request->shopId);
 
@@ -224,6 +297,8 @@ class ShopController extends Controller
 
         $shop->delete();
 
-        return view('store_mangement');
+        $shops = Shop::all();
+
+        return view('store_management', ['shops' => $shops]);
     }
 }

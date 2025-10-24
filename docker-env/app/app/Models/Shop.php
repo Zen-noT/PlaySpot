@@ -40,6 +40,9 @@ class Shop extends Model
     }
 
     public function waitingtime(){
-        return $this->hasOne(Waitingtime::class);
+        return $this->belongsTo(Waitingtime::class);
+    }
+    public function genre(){
+        return $this->belongsTo(Genre::class);
     }
 }
