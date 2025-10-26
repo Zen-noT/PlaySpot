@@ -3,20 +3,19 @@ $(function() {
     $("#review_submit").on("click", function() {
         $.ajax({
 
-            url: '/shops/evaluation_create', //LaravelのルーティングにつなぐURL
-            type: 'POST', //getかpostを指定
-            cache: false, //cacheを使うかどうか
-            dataType:'json', //data type scriptなどデータタイプの指定
+            url: '/shops/evaluation_create', 
+            type: 'POST', 
+            cache: false, 
+            dataType:'json', 
             
-            data:引数名, //Laravelのコントローラへ渡す引数を記述する $request->引数名　などで呼び出せます
+            data:{ //引数名 $request->引数名　
+                shop_id: $('input[name="shop_id"]').val(), 
+                user_id: $('input[name="user_id"]').val(), 
+                evaluation: $('select[name="evaluation"]').val(), 
+                comment: $('textarea[name="comment"]').val(), 
+            },
 
-                "_token": "{{ csrf_token() }}", //CSRF対策
-                shop_id: $('input[name="shop_id"]').val(), // 店舗ID
-                user_id: $('input[name="user_id"]').val(), // ユーザーID
-                evaluation: $('select[name="evaluation"]').val(), // 評価
-                comment: $('textarea[name="comment"]').val(), // コメント
-            
-            success: function(data){ // 通信が成功したときの処理
+            success: function(data){ 
 
                 alert("評価を送信しました。");
 
@@ -29,11 +28,12 @@ $(function() {
                     </div>
                 `;
                 $(".review_list").prepend(newhtml);
+
                 $("textarea[name='comment']").val(""); // コメントを空にする
-                $("#evaluation").val(""); // 評価をリセットする
+                $("#evaluation").val("1"); // 評価をリセット
             },
 
-            error: function(){ // 通信が失敗したときの処理（メッセージなど）
+            error: function(){ 
                 alert("評価送信に失敗しました。もう一度お試しください。");
             }
         

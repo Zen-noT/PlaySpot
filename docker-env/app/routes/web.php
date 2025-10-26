@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth.members:members'], function() {
 
     Route::get('/shops/detail/{shop}', [ShopController::class, 'shop_detail'])->name('shops.detail');
     //ajax
-    Route::get('/shops/evaluation_create', [ShopController::class, 'evaluation_create'])->name('shops.evaluation_create');
+    Route::post('/shops/evaluation_create', [ShopController::class, 'evaluation_create'])->name('shops.evaluation_create');
     
 });
 

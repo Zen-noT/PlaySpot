@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\Genre;
+use App\Models\Waitingtime;
+use App\Models\Evaluation;
 use Illuminate\Http\Request;
-use App\Evaluation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -18,14 +19,17 @@ class ShopController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+
+    public function index(Request $request){
         //検索する
         $location = $request->input('location');
         $genre = $request->input('genre');
         $congestion = $request->input('congestion');
 
-        $query = Shop::query()->join('genres', 'shops.genre_id', '=', 'genres.id')->select('shops.*');
+        $query = Shop::query()
+        ->join('genres', 'shops.genre_id', '=', 'genres.id')
+        ->join('waitingtimes', 'waitingtimes.shop_id', '=', 'shops.id') 
+        ->select('shops.*', 'waitingtimes.waiting_img');
 
         if ($location) {
             $query->where('address', 'like', '%' . $location . '%');
@@ -51,7 +55,7 @@ class ShopController extends Controller
         }
 
         if ($congestion) {
-            $query->where('congestion','<=', $congestion); 
+            $query->where('waitingtimes.waiting_img', '<=', $congestion); 
         }
 
 
@@ -69,13 +73,18 @@ class ShopController extends Controller
     }
 
 
-    public function shop_detail(Shop $shop)
-    {
-        $shop->load('prises');
-        $shop->loadAvg('evaluations', 'evaluation');
-        $shop->load('waitingtimes');
+    public function shop_detail($shop){
 
-        return view('shop_detail', ['shop' => $shop]);
+        $shops = Shop::where('id', $shop)->first();
+
+        $avg = Evaluation::where('shop_id', $shop)->avg('evaluation');
+
+        $waitingtimes = Waitingtime::where('shop_id', $shop)->first();
+
+        $comment = Evaluation::where('shop_id', $shop)->get();
+        
+
+        return view('shop_detail', ['shop' => $shops,'avg' => $avg,'waitingtime' =>$waitingtimes, 'evaluations'=>$comment]);
     }
     
     public function evaluation_create(Request $request)
@@ -104,8 +113,10 @@ class ShopController extends Controller
         $shop->waiting_time = $request->wait_time;
 
         $shop->save();
-        
-        return view('store_mangement');
+
+        $shops = Shop::all();
+
+        return view('store_management', ['shops' => $shops]);
     }
 
 
@@ -160,6 +171,12 @@ class ShopController extends Controller
         $shop->genre_id = $genre->id;
 
         $shop->save();
+
+        $waiting = new Waitingtime;
+
+        $waiting->shop_id = $shop->id;
+
+        $waiting->save();
 
         $shops = Shop::all();
 

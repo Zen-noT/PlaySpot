@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token　（セキュリティ） -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
 
         <title>{{ config('app.name', 'larabel') }}</title>
 
@@ -14,9 +13,8 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/ajax.js') }}" defer></script>
-         <!-- 読み込み高速化 -->
+        <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- 読み込み高速化 -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <!-- グーグル提供のフォント -->
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">

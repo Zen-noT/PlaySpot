@@ -6,15 +6,15 @@
         <h2>{{ $shop->shop_name }}</h2>
 
         <div>
-            @if (!is_null($shop->evaluations_avg_evaluation))
-                <p>平均評価: {{ number_format($shop->evaluations_avg_evaluation, 1) }} 点</p>
+            @if (!is_null($avg))
+                <p>平均評価: {{ number_format($avg, 1) }} 点</p>
             @else
                 <p>評価なし</p>
             @endif
         </div>
 
         <div>
-            <p>予想待ち時間：{{ $shop -> waiting_time}}</p>
+            <p>予想待ち時間：{{ $waitingtime->waiting_time }}分</p>
         </div>
 
         <div>
@@ -24,7 +24,7 @@
 
     <div>
         <div>
-            <img src="{{asset('storage/images' . $shop->shop_img)}}" >
+            <img src="{{asset('storage/images/' . $shop->shop_img)}}" >
         </div>
 
         <div>
@@ -42,7 +42,7 @@
     </div>
 
     <div>
-        <form id="review_form">
+        <form>
             @csrf
             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
@@ -62,14 +62,13 @@
         </form>
     </div>
 
-    <div class="reviews_list">
+    <div class="review_list">
         <h3>レビュー一覧</h3>
 
         @if($evaluations->isEmpty())
-        <!-- @if($shop->evaluation->isEmpty()) -->
             <p>まだレビューがありません。</p>
         @else
-            @foreach($shop->evaluation as $evaluation)
+            @foreach($evaluations as $evaluation)
                 <div>
                     <p>評価: {{ $evaluation->evaluation }} 点</p>
                     <p>コメント: {{ $evaluation->comment }}</p>

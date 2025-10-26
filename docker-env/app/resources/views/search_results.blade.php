@@ -2,7 +2,7 @@
 @section('content')
 
 <div>
-    <form action="/shops" method="GET">
+    <form action="{{route('shops.search')}}" method="GET">
         @csrf
         <div>
             <label for="location">ロケーションを入力</label>
@@ -17,14 +17,16 @@
                 <option value="bouling">ボウリング</option>
                 <option value="billiards">ビリヤード</option>
                 <option value="all">全部探す</option>
+            </select>
         </div>
         <div>
             <label>混雑具合を選択</label>
             <select name="congestion" id="congestion">
                 <option value="">選択してください</option>
-                <option value="0">空いている</option>
-                <option value="1">やや混雑</option>
-                <option value="2">混雑</option>
+                <option value="0">空いているお店を検索</option>
+                <option value="1">少し並んでも探したい</option>
+                <option value="2">混んでいても探したい</option>
+            </select>
         </div>
         <div>
             <button type="submit">検索</button>
@@ -49,8 +51,8 @@
                     <p>住所: {{ $shop->address }}</p>
 
                     <div>
-                        @if (!is_null($shop->evaluations_avg_evaluation))
-                            <p>平均評価: {{ number_format($shop->evaluations_avg_evaluation, 1) }} 点</p>
+                        @if (!is_null($shop->evaluations_avg))
+                            <p>平均評価: {{ number_format($shop->evaluations_avg, 1) }} 点</p>
                         @else
                             <p>評価なし</p>
                         @endif
