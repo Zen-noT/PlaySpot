@@ -23,36 +23,35 @@
     </head>
     <body>
         
-        <header>
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('user.search') }}">
+        <header class="card navbar  navbar-light bg-light mt-1 mb-3 sticky-top">
+            <div class="container justify-content-between ">
+                <div class="navbar-brand ">
+                    <a href="{{ route('store.management') }}">
+                        <img src="{{ asset('storage/images/' .'PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
+                    </a>
+                </div>
+                <div class="align-items-center">
+                    @if(Auth::check())
+                        <span style="font-size: 1.7rem;" class="m-2">{{ Auth::user()->name }}</span>
 
-                    ロゴ（後で差し替え）
-
-
-                </a>
-            </div>
-            <div class="my-navbar-control">
-                @if(Auth::check())
-                    <span>{{ Auth::user()->name }}</span>
-
-                    <a href="#" id="logout"> ログアウト</a>
-                    <form id="logout-form" action="{{ route('store.logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <script>
-                        document.getElementById('logout').addEventListener('click', function(event) {
-                            event.preventDefault();
-                            document.getElementById('logout-form').submit();
-                        });
-                    </script>
-                @endif
+                        <a href="#" id="logout" class="btn btn-dark"> ログアウト</a>
+                        <form id="logout-form" action="{{ route('store.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <script>
+                            document.getElementById('logout').addEventListener('click', function(event) {
+                                event.preventDefault();
+                                document.getElementById('logout-form').submit();
+                            });
+                        </script>
+                    @endif
+                </div>
             </div>
         </header>
          <!-- バリデーションエラーの表示 -->
-        <div>
+        <div class='panel-body'>
             @if($errors->any())
-            <div>
+            <div class='alert alert-danger'>
                 <ul>
                     @foreach($errors->all() as $message)
                     <li>{{ $message }}</li>
@@ -63,7 +62,7 @@
             @endif
         </div>
 
-        @yield('content')
+        @yield('content_store')
             
             
        

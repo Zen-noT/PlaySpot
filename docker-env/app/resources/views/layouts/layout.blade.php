@@ -30,7 +30,7 @@
                         <img src="{{ asset('storage/images/' .'PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
                     </a>
                 </div>
-                <div class=" align-items-center"> 
+                <div class="align-items-center"> 
                     @if(Auth::check())
                         <span style="font-size: 1.7rem;">{{ Auth::user()->name }}</span>
 

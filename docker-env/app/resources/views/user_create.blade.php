@@ -19,45 +19,60 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <!--ロゴ-->
-
-            <a href="{{ route('user.login') }}">戻る</a>
+        <header class="card navbar navbar-light bg-light mt-1 mb-3 sticky-top">
+            <div class="container d-flex align-items-center">
+                <div class="navbar-brand mb-0">
+                    <img src="{{ asset('storage/images/PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('user.login') }}" class="btn btn-secondary py-2 px-3">
+                        戻る
+                    </a>
+                </div>
+            </div>
         </header>
 
         <main>
-            <h2>新規登録</h2>
-            <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
+            <div class="container mt-5 py-5">
+                <div class="d-flex justify-content-center">
+                    <div class='card'>
+                        <div class="card-header">
+                            <h2>新規登録</h2>
+                        </div>
+                        <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data" class="card-body">
 
-                @csrf
-                <div>
-                    <label for="name">ユーザーネーム</label>
-                    <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                </div>
-                <div>
-                    <label for="email">メールアドレス</label>
-                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                </div>
-                <div>
-                    <label for="password">パスワード</label>
-                    <input id="password" type="password" name="password" required autocomplete="current-password">
-                </div>
-                <div>
-                    <label for="icon_image">アイコン画像を設定</label>
-                    <input id="icon_image" type="file" name="icon_image" value="{{ old('icon_image') }}" required autocomplete="icon_image" autofocus>
-                </div>
-                <div>
-                    <label for="profile">プロフィール</label>
-                    <textarea id="profile" name="profile"  autocomplete="profile" autofocus>{{ old('profile') }}</textarea>
-                </div>
-                <input type="hidden" name="role" value="1">
+                            @csrf
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <label for="name">ユーザーネーム</label>
+                                <input id="name" type="text" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            </div>
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <label for="email">メールアドレス</label>
+                                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            </div>
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <label for="password">パスワード</label>
+                                <input id="password" type="password" name="password" required autocomplete="current-password">
+                            </div>
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <label for="icon_image">アイコン画像を設定</label>
+                                <input id="icon_image" type="file" name="icon_image" value="{{ old('icon_image') }}" required autocomplete="icon_image" autofocus>
+                            </div>
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <label for="profile">プロフィール</label>
+                                <textarea id="profile" name="profile"  autocomplete="profile" autofocus>{{ old('profile') }}</textarea>
+                            </div>
+                            <input type="hidden" name="role" value="1">
 
-                <div>
-                    <button type="submit">
-                        新規登録
-                    </button>
+                            <div class='mt-5 d-flex justify-content-center'>
+                                <button type="submit" class="btn btn-primary">
+                                    新規登録
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
         </main>        
     </body>
 </html>

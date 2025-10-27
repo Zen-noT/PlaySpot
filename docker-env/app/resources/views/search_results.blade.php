@@ -2,7 +2,7 @@
 @section('content')
 
 <div>
-    <div class="container mt-3">
+    <div class="container mt-3 py-3">
         <div>
             <form action="{{route('shops.search')}}" method="GET" class="row mb-5 d-flex justify-content-center">
                 @csrf
@@ -38,50 +38,52 @@
         </div>
     </div>
     <!-- 検索結果ループでお店ごとに -->
-    <div class="container mt-3">
-        <div>
-            @if($shops->isEmpty())
-                <p>該当するお店が見つかりませんでした。</p>
-            @else
-                <div class="row">
-                    @foreach($shops as $shop)
-                        <div class=" col mb-5 ">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-3">
+    <div class="container mt-3 py-2">
+        
+        @if($shops->isEmpty())
+            <p>該当するお店が見つかりませんでした。</p>
+        @else
+            <div class="row">
+                @foreach($shops as $shop)
+                    <div class=" col mb-5 ">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="d-flex align-items-center">
+                                        <div class="col-md-2">
                                             <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="120" height="120">
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <a href="{{route('shops.detail',['shop'=> $shop->id ]) }}" >
                                                 <h2>{{ $shop->shop_name }}</h2>
                                             </a>
 
-                                            <p>住所: {{ $shop->address }}</p>
+                                            <p class='pt-3'>住所: {{ $shop->address }}</p>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 d-flex justify-content-end">
                                             @if (!is_null($shop->evaluations_avg))
-                                                <p>平均評価: {{ number_format($shop->evaluations_avg, 1) }} 点</p>
+                                                <p>☆評価　:　 {{ number_format($shop->evaluations_avg, 1) }} 点</p>
                                             @else
                                                 <p>評価なし</p>
                                             @endif
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3  d-flex justify-content-end pr-5">
                                             @if ($shop->waiting_img === 0)
-                                                <p>空いている</p>
+                                                <p>混雑状況　:　空いている</p>
                                             @elseif($shop->waiting_img === 1)
-                                                <p>やや混雑</p>
+                                                <p>混雑状況　:　やや混雑</p>
                                             @elseif($shop->waiting_img === 2)
-                                                <p>混雑</p>
+                                                <p>混雑状況　:　混雑</p>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-            @endif
-        </div>
+                    </div>
+                @endforeach
+        @endif
+    
     </div>
 </div>
 

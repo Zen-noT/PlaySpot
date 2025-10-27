@@ -19,20 +19,36 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <!--ロゴ-->
-
-            <a href="{{ route('store.login') }}">戻る</a>
-        </header>
-
-        <main>
-            <h2>メール送信完了</h2>
-            <div>
-                <p>パスワード再設定用のメールを送信しました</p>
-                <p>メールに記載されているリンクからパスワードの再設定を行ってください</p>
+        <header class="card navbar navbar-light bg-light mt-1 mb-3 sticky-top">
+            <div class="container d-flex align-items-center">
+                <div class="navbar-brand mb-0">
+                    <img src="{{ asset('storage/images/PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('store.login') }}" class="btn btn-secondary py-2 px-3">
+                        戻る
+                    </a>
+                </div>
             </div>
-            <div>
-                <a href="{{ route('store.login') }}">ログイン画面へ</a>
+        </header>
+        <main>
+            <div class="container mt-5 py-5">
+                <div class="d-flex justify-content-center">
+                    <div class='card'>
+                        <div class="card-header">
+                            <h2>メール送信完了</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <p>パスワード再設定用のメールを送信しました</p>
+                                <p>メールに記載されているリンクからパスワードの再設定を行ってください</p>
+                            </div>
+                            <div class='mb-3 d-flex flex-column m-3'>
+                                <a href="{{ route('store.login') }}" class="btn btn-primary">ログイン画面へ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
 
