@@ -19,40 +19,41 @@
         <!-- グーグル提供のフォント -->
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <!-- スタイルシート読み込み -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
         
-        <header>
-            <div class="container">
-                <a class="navbar-brand" href="{{ route('user.search') }}">
-
-                    ロゴ（後で差し替え）
-
-
-                </a>
-            </div>
-            <div class="my-navbar-control">
-                @if(Auth::check())
-                    <span>{{ Auth::user()->name }}</span>
-                    <a href="{{ route('user.mypage') }}">
-                        <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="100" height="100">
+        <header class="card navbar  navbar-light bg-light mt-1 mb-3 sticky-top">
+            <div class="container justify-content-between ">
+                <div class="navbar-brand ">
+                    <a href="{{ route('user.search') }}">
+                        <img src="{{ asset('storage/images/' .'PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
                     </a>
-                    
+                </div>
+                <div class=" align-items-center"> 
+                    @if(Auth::check())
+                        <span style="font-size: 1.7rem;">{{ Auth::user()->name }}</span>
 
-                    <a href="#" id="logout"> ログアウト</a>
-                    <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                    <script>
-                        document.getElementById('logout').addEventListener('click', function(event) {
-                            event.preventDefault();
-                            document.getElementById('logout-form').submit();
-                        });
-                    </script>
-                @endif
-            </div>
+                        <a href="{{ route('user.mypage') }}" class="px-2">
+                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="80" height="80" class="rounded-circle">
+                        </a>
+                        
+
+                        <a href="#" id="logout" class="btn btn-dark"> ログアウト</a>
+                        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <script>
+                            document.getElementById('logout').addEventListener('click', function(event) {
+                                event.preventDefault();
+                                document.getElementById('logout-form').submit();
+                            });
+                        </script>
+                    @endif
+                </div>
+            </div>    
         </header>
+
          <!-- バリデーションエラーの表示 -->
         <div class='panel-body'>
             @if($errors->any())

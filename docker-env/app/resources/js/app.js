@@ -7,6 +7,8 @@ $.ajaxSetup({
 });
 
 import './ajax.js'; 
+import 'bootstrap';
+
 
 console.log('app.js loaded');
 
