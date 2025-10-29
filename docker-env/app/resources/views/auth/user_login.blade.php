@@ -37,7 +37,7 @@
 
         <main>
             <div class="container mt-5 py-5">
-                <<div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center">
                     <div class='card'>
                         <div class="card-header">
                             <h2>ログイン</h2>

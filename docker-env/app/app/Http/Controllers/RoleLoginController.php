@@ -17,17 +17,12 @@ class RoleLoginController extends Controller
         if (Auth::check()) {
             return redirect('/store/management'); 
         }
-        //dd(session()->all(), Auth::guard('web')->check(), Auth::getDefaultDriver());
         
-        
-
         return view('auth.store_login');
     }
 
     //ログイン処理
     public function login(Request $request){
-
-        //$credentials = $request->only('email', 'password');
 
         $credentials = $request->validate([
             'email' => ['required', 'email'],
@@ -41,18 +36,6 @@ class RoleLoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended(route('store.management')); 
 
-
-            // $user = Auth::guard('web')->user();
-
-            // if($user && $user->role === "0"){
-
-            //     return redirect()->intended(route('store.management'));   
-                
-                
-            // }else{
-            //     Auth::guard('web')->logout();
-            //     return redirect()->route('store.login')->withErrors(['error' => '無効なユーザー権限です。']);
-            // }
         }
 
         return redirect('/store_login')->withErrors(['error' => '無効なな承認情報です。']);

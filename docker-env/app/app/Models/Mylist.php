@@ -9,8 +9,4 @@ class Mylist extends Model
    public function user(){
         return $this->hasOne(User::class);
    }
-
-    // public function shop(){
-    //       return $this->hasMany(Shop::class);
-    // }
 }

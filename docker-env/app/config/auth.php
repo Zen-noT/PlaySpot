@@ -50,12 +50,6 @@ return [
             'driver' => 'session',
             'provider' => 'stores',
         ],
-
-        // 'api' => [
-        //     'driver' => 'token',
-        //     'provider' => 'users',
-        //     'hash' => false,
-        // ],
     ],
 
     /*

@@ -25,26 +25,25 @@ class UserRepository implements UserRepositoryInterface
     }
 
     // パスワードリセット用トークンを発行
-    public function updateOrCreateUser(int $userId): User
-    {
+    public function updateOrCreateUser(int $userId): User{
+        
         $now = Carbon::now();
         //idをハッシュ化
         $token = hash('sha256',$userId);
-        return $this->userToken->updateOrCreate(
-            ['id' => $userId],
-            [
-                // $tokenを含むトークンを作成
-                'rest_password_access_key' =>uniqid(rand(), $token),
-                //1時間有効
-                'rest_password_access_limit' => $now->addHour()->toDateTimeString() 
-            ]
-        );
+        
+
+        $user = User::findOrFail($userId);
+        $user->reset_password_access_key = bin2hex(random_bytes(16));
+        $user->reset_password_expire_at = $now->addHour();
+        $user->save();
+
+        return $user;
     }
 
     // トークンからユーザー情報を取得
     public function getUserTokenFromUser(string $token): User
     {
-        return $this->userToken->where('rest_password_access_key', $token)->first();
+        return $this->userToken->where('reset_password_access_key', $token)->first();
     }
 
     // ユーザーのパスワードを更新

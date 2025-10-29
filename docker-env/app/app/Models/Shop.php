@@ -16,13 +16,6 @@ class Shop extends Model
         'shop_img',
     ];
     
-    
-    // public function mylist(){
-    //     return $this->belongsToMany(Mylist::class);
-    // }
-    
-
-
     public function evaluations(){
         return $this->hasMany(Evaluation::class);
     }

@@ -58,8 +58,6 @@ class ShopController extends Controller
             $query->where('waitingtimes.waiting_img', '<=', $congestion); 
         }
 
-
-        
         //$shops = $query->withAvg('evaluations', 'evaluation')->get();
         $shops = $query->with('evaluations')->get();
 
@@ -67,8 +65,6 @@ class ShopController extends Controller
             $shop->evaluations_avg = $shop->evaluations->avg('evaluation');
         }
     
-
-
         return view('search_results', [ 'shops' => $shops]);
     }
 
@@ -205,8 +201,6 @@ class ShopController extends Controller
         //$user = Auth::guard('stores')->user();
         $user = Auth::user(); 
 
-
-        //$shops = Shop::where('admin_user', $user->id)->withAvg('evaluations', 'evaluation')->get();
         $shops = Shop::where('admin_user', $user->id)
         ->withCount([
             'evaluations as evaluations_avg_evaluation' => function ($query) {

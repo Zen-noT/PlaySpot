@@ -18,17 +18,5 @@ class StoreAuthMiddleware extends Middleware
 
         return route('store.login');
     }
-    
-    // protected function authenticate($request, array $guards){
-        
-    //     if (empty($guards)) {
-    //         $guards = ['web'];
-    //     }
 
-    //     $this->auth->shouldUse($guards[0]);
-
-    //     parent::authenticate($request, $guards);
-
-    // }
-    
 }

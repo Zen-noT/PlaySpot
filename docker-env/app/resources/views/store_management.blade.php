@@ -18,7 +18,7 @@
             <div class="row">
             @foreach($shops as $shop)
                 <div class=" col">
-                    <div class="card">
+                    <div class="card m-2">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="d-flex align-items-center">

@@ -46,9 +46,10 @@
                                 <label>新パスワード<span>確認</span></label>
                                 <input type="password" name="password_confirmation" value="">
                             </div>
+                            <input type="hidden" name="token" value="{{ request()->query('token') }}">
                             <div class='mb-3 d-flex flex-column m-3'>
                                 <button type="submit" class="btn btn-primary">
-                                    パスワードを再設定する。
+                                    再設定
                                 </button>
 
                             </div>

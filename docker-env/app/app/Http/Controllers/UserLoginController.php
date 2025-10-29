@@ -27,15 +27,10 @@ class UserLoginController extends Controller
 
         if(Auth::guard('members')->attempt($credentials)){
 
-            //dd(Auth::guard('members')->check(), session()->all()); // 認証状態とセッション内容を確認
-
             $user = Auth::guard('members')->user();
 
             if($user && $user->role == 1){
-
                 return redirect()->route('user.search');
-                //return redirect('/search');
-
             }else{
                 Auth::guard('members')->logout();
                 return redirect()->route('user.login')->withErrors(['error' => '無効なユーザー権限です。']);

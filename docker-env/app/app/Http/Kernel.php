@@ -62,12 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
-        // 'role.auth' => \App\Http\Middleware\RoleMiddleware::class,
-        // 'user.auth' => \App\Http\Middleware\UserMiddleware::class,
-
         //承認ミドルウェア
         'auth' => \App\Http\Middleware\Authenticate::class,
-
         'auth.stores' => \App\Http\Middleware\StoreAuthMiddleware::class,
         'auth.members' => \App\Http\Middleware\UserMiddleware::class,
     ];
