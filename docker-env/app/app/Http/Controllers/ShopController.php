@@ -112,7 +112,7 @@ class ShopController extends Controller
 
         $shops = Shop::all();
 
-        return view('store_management', ['shops' => $shops]);
+        return redirect()->route('store.management');
     }
 
 

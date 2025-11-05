@@ -3,7 +3,7 @@
 
 <main>
     <div class="container mt-5 py-5">
-        <<div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
             <form method="POST" action="{{ route('user.update.submit') }}" enctype="multipart/form-data" >
                 @csrf
                 <div class="d-flex justify-content-center align-items-center mb-5">

@@ -3,7 +3,7 @@
 
 <main>
     <div  class="container mt-5 py-5">
-        <<div  class="d-flex justify-content-center">
+        <div  class="d-flex justify-content-center">
             <div>
                 <h3>この店舗を消去してもよろしいですか？</h3>
 

@@ -71,24 +71,23 @@
 
         <div class="card" style="width: 70%;">
             <div  class="container mt-3 py-3">
-                <div class="review_list">
-                    <div class="card-heade">
-                        <h3>レビュー一覧</h3>
-                    </div>
-                    <div class="card-body">
-                        @if($evaluations->isEmpty())
-                            <p>まだレビューがありません。</p>
-                        @else
-                            @foreach($evaluations as $evaluation)
-                                <div class="card mt-3 p-3">
-                                    <p>評価: {{ $evaluation->evaluation }} 点</p>
-                                    <p>コメント: {{ $evaluation->comment }}</p>
-                                    <p>投稿者: {{ $evaluation->user->name }}</p>
-                                    <p>投稿日: {{ $evaluation->created_at->format('Y-m-d') }}</p>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
+                <div class="card-heade">
+                    <h3>レビュー一覧</h3>
+                </div>
+                <div class="card-body">
+                    <div class="review_list">
+                    @if($evaluations->isEmpty())
+                        <p>まだレビューがありません。</p>
+                    @else
+                        @foreach($evaluations as $evaluation)
+                            <div class="card mt-3 p-3">
+                                <p>評価: {{ $evaluation->evaluation }} 点</p>
+                                <p>コメント: {{ $evaluation->comment }}</p>
+                                <p>投稿者: {{ $evaluation->user->name }}</p>
+                                <p>投稿日: {{ $evaluation->created_at->format('Y-m-d') }}</p>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

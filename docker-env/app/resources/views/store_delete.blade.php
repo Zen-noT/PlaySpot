@@ -3,7 +3,7 @@
 
 <main>
     <div  class="container mt-5 py-5">
-        <<div  class="d-flex justify-content-center">
+        <div  class="d-flex justify-content-center">
             <div>
                 <h3>本当にアカウントを消去してもよろしいですか？</h3>
                 

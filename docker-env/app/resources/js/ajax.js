@@ -20,12 +20,20 @@ $(function() {
                 alert("評価を送信しました。");
 
                 var newhtml = `
-                    <div>
-                        <p>評価: ${data.evaluation} 点</p>
-                        <p>投稿者: ${data.user_name}</p>
-                        <p>コメント: ${data.comment}</p>
-                        <p>投稿日: ${data.created_at}</p>
+                <div class="card" style="width: 70%;">
+                    <div  class="container mt-3 py-3">
+                        <div class="review_list">
+                            <div class="card-body">
+                                <div class="card mt-3 p-3">
+                                    <p>評価: ${data.evaluation} 点</p>
+                                    <p>投稿者: ${data.user_name}</p>
+                                    <p>コメント: ${data.comment}</p>
+                                    <p>投稿日: ${data.created_at}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
                 `;
                 $(".review_list").prepend(newhtml);
 

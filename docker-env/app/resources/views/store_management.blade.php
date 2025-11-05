@@ -40,7 +40,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <form action="{{route('wait.time.submit')}}" method="GET"class="d-flex align-items-end " >
+                                            <form action="{{route('wait.time.submit')}}" method="POST"class="d-flex align-items-end " >
                                                 @csrf
                                                 <div class="m-2">
                                                     <label for="wait_img"class="form-label">待ち時間イメージ</label>
