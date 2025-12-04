@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.stores' => \App\Http\Middleware\StoreAuthMiddleware::class,
         'auth.members' => \App\Http\Middleware\UserMiddleware::class,
+        'auth.admin' => \App\Http\Middleware\AdminMiddleware::class,
     ];
 
     /**

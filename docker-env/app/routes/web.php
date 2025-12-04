@@ -7,6 +7,8 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\RoleLoginController;   
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\AdminLoginController;
+
 use Illuminate\Support\Facades\Auth;
 
 
@@ -22,6 +24,12 @@ Route::get('/store_login', [RoleLoginController::class, 'showLoginForm'])->name(
 
 Route::post('/store_login', [RoleLoginController::class, 'login'])->name('store.login.submit');
 Route::post('/logout/store', [RoleLoginController::class, 'logout'])->name('store.logout');
+
+
+Route::get('/admin_login', [AdminLoginController::class, 'showAdminLoginForm'])->name('admin.login');
+
+Route::post('/admin_login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
+Route::post('/logout/admin', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
 
 Route::prefix('create')->group(function () {
@@ -94,6 +102,12 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/shop/delete', [ShopController::class, 'shop_delete_form'])->name('shop.delete');
     Route::post('/shop/delete', [ShopController::class, 'shop_destroy'])->name('shop.delete.submit');
+
+});
+
+Route::group(['middleware' => 'auth.admin'], function(){
+    
+    Route::get('/admin/home', function () {return view('admin_home');})->name('admin.home');
 
 });
 
