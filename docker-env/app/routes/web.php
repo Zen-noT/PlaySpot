@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleLoginController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -108,6 +109,22 @@ Route::group(['middleware' => 'auth'], function(){
 Route::group(['middleware' => 'auth.admin'], function(){
     
     Route::get('/admin/home', function () {return view('admin_home');})->name('admin.home');
+
+    Route::get('/admin/user/management', [AdminController::class, 'showUserManagement'])->name('admin.user.management');
+    Route::get('/admin/store_user/management', [AdminController::class, 'showStoreUserManagement'])->name('admin.store.user.management');
+    Route::get('/admin/store/management', [AdminController::class, 'showStoreManagement'])->name('admin.store.management');
+    Route::get('/admin/review/management', [AdminController::class, 'showReviewManagement'])->name('admin.review.management');
+    
+    Route::post('/admin/user/deleate/form', [AdminController::class, 'user_deleate_form'])->name('admin.user.deleate.form');
+    Route::post('/admin/user/deleate', [AdminController::class, 'user_deleate'])->name('admin.user.deleate.submit');
+
+    Route::post('/admin/store_user/deleate/form', [AdminController::class, 'store_user_deleate_form'])->name('admin.store.user.deleate.form');
+    Route::post('/admin/store_user/deleate', [AdminController::class, 'store_user_deleate'])->name('admin.store.user.deleate.submit');
+
+    Route::post('/admin/store/deleate/form', [AdminController::class, 'store_deleate_form'])->name('admin.store.deleate.form');
+    Route::post('/admin/store/deleate', [AdminController::class, 'store_deleate'])->name('admin.store.deleate.submit');
+
+
 
 });
 

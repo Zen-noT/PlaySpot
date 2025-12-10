@@ -21,9 +21,8 @@ class AdminMiddleware
        
         if($user->role == 3){
             return $next($request);
-        }else{
-            return redirect()->route('admin.login');
         }
+        return redirect()->route('admin.login');
         
     }
 }

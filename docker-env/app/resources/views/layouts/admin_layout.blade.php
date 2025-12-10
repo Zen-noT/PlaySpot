@@ -31,10 +31,10 @@
                     </a>
                 </div>
                 <div class="align-items-center">
-                    @if(Auth::check())
-                        <span style="font-size: 1.7rem;" class="m-2">{{ Auth::user()->name }}</span>
+                    @if (Auth::guard('admin')->check())
+                          <span style="font-size: 1.7rem;" class="m-2">管理者：{{ Auth::guard('admin')->user()->name }} ログイン中</span>
 
-                        <a href="#" id="logout" class="btn btn-dark"> ログアウト</a>
+                        <a href="#" id="logout" class="btn btn-dark" > ログアウト</a>
                         <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
