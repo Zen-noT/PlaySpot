@@ -39,7 +39,6 @@
     </div>
     <!-- 検索結果ループでお店ごとに -->
     <div class="container mt-3 py-2">
-        
         @if($shops->isEmpty())
             <p>該当するお店が見つかりませんでした。</p>
         @else
@@ -55,7 +54,6 @@
                                     <a href="{{route('shops.detail',['shop'=> $shop->id ]) }}" >
                                         <h2>{{ $shop->shop_name }}</h2>
                                     </a>
-
                                     <p class='pt-3'>住所: {{ $shop->address }}</p>
                                 </div>
                                 <div class="col-md-3 d-flex justify-content-end">
@@ -79,6 +77,11 @@
                     </div>
                 </div>
             @endforeach
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ $shops->appends(request()->query())->links() }}
+            </div>
+
         @endif
     
     </div>

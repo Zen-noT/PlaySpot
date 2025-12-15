@@ -124,6 +124,9 @@ Route::group(['middleware' => 'auth.admin'], function(){
     Route::post('/admin/store/deleate/form', [AdminController::class, 'store_deleate_form'])->name('admin.store.deleate.form');
     Route::post('/admin/store/deleate', [AdminController::class, 'store_deleate'])->name('admin.store.deleate.submit');
 
+    Route::post('/admin/review/deleate/form', [AdminController::class, 'review_deleate_form'])->name('admin.review.deleate.form');
+    Route::post('/admin/review/deleate', [AdminController::class, 'review_deleate'])->name('admin.review.deleate.submit');
+
 
 
 });

@@ -22,7 +22,7 @@ class AdminController extends Controller
         ->where('role', 1)
         ->select('id', 'name', 'email', 'created_at','icon');
 
-        $users = $query->get();
+        $users = $query->paginate(5);
 
         return view('admin_user_management', ['users' => $users]);
     }
@@ -31,9 +31,9 @@ class AdminController extends Controller
         $query = Evaluation::query()
         ->join('users', 'evaluations.user_id', '=', 'users.id')
         ->join('shops', 'evaluations.shop_id', '=', 'shops.id')
-        ->select('evaluations.*', 'users.name as user_name', 'shops.shop_name as shop_name');
+        ->select('evaluations.*', 'users.name as user_name', 'shops.shop_name as shop_name','users.icon');
 
-        $reviews = $query->get();
+        $reviews = $query->paginate(5);
 
         return view('admin_review_management', ['reviews' => $reviews]);
     }
@@ -43,7 +43,7 @@ class AdminController extends Controller
         ->where('role', 0)
         ->select('id', 'name', 'email', 'created_at','icon');
 
-        $store_users = $query->get();
+        $store_users = $query->paginate(5);
 
         return view('admin_store_user_management', ['store_users' => $store_users]);
     }
@@ -51,10 +51,10 @@ class AdminController extends Controller
     public function showStoreManagement(){
 
         $query = Shop::query()
-        ->join('users', 'shops.user_id', '=', 'users.id')
+        ->join('users', 'shops.admin_user', '=', 'users.id')
         ->select('shops.*', 'users.name as user_name', 'users.email as user_email', 'users.id as user_id');
 
-        $stores = $query->get();
+        $stores = $query->paginate(5);
 
         return view('admin_store_management', ['stores' => $stores]);
     }
@@ -144,6 +144,7 @@ class AdminController extends Controller
         $user->delete();
         return redirect()->route('admin.user.management')->with(['message' => 'ユーザーを削除しました。']);
     }
+
     public function store_user_deleate_form(Request $request){
         
         $id = $request->userId;
@@ -165,5 +166,49 @@ class AdminController extends Controller
 
         $store_user->delete();
         return redirect()->route('admin.store.user.management')->with(['message' => '店舗ユーザーを削除しました。']);
+    }
+    public function store_deleate_form(Request $request){
+        
+        $id = $request->storeId;
+
+        $store = Shop::find($id);
+
+        if (!$store) {
+            return redirect()->route('admin.store.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        return view('admin_store_deleate', ['store' => $store]);
+    }
+    public function store_deleate(Request $request){
+        
+        $store = Shop::find($request->storeId);
+        if (!$store) {
+            return redirect()->route('admin.store.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        $store->delete();
+        return redirect()->route('admin.store.management')->with(['message' => '店舗を削除しました。']);
+    }
+    public function review_deleate_form(Request $request){
+        
+
+        $review = $request->evaluationId;
+
+        if (!$review) {
+            return redirect()->route('admin.review.management')->with('error', '指定されたレビューが見つかりません。');
+        }
+
+        return view('admin_review_deleate', ['review' => $review]);
+    }
+    public function review_deleate(Request $request){
+        
+        $review = Evaluation::find($request->evaluationId);
+        if (!$review) {
+            return redirect()->route('admin.review.management')->with('error', '指定されたレビューが見つかりません。');
+        }
+
+        $review->delete();
+
+        return redirect()->route('admin.review.management')->with(['message' => 'レビューを削除しました。']);
     }
 }

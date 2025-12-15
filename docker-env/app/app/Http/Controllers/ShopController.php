@@ -21,10 +21,12 @@ class ShopController extends Controller
      */
 
     public function index(Request $request){
+
         //検索する
         $location = $request->input('location');
         $genre = $request->input('genre');
         $congestion = $request->input('congestion');
+
 
         $query = Shop::query()
         ->join('genres', 'shops.genre_id', '=', 'genres.id')
@@ -59,7 +61,9 @@ class ShopController extends Controller
         }
 
         //$shops = $query->withAvg('evaluations', 'evaluation')->get();
-        $shops = $query->with('evaluations')->get();
+
+        
+        $shops = $query->paginate(5);
 
         foreach ($shops as $shop) {
             $shop->evaluations_avg = $shop->evaluations->avg('evaluation');
@@ -174,7 +178,7 @@ class ShopController extends Controller
 
         $waiting->save();
 
-        $shops = Shop::all();
+        $shops = Shop::paginate(5);
 
         return view('store_management', ['shops' => $shops]);
     }
@@ -206,7 +210,7 @@ class ShopController extends Controller
             'evaluations as evaluations_avg_evaluation' => function ($query) {
                 $query->select(DB::raw('coalesce(avg(evaluation), 0)'));
             }
-        ])->get();
+        ])->paginate(5);
 
         return view('store_management', ['shops' => $shops]);
 
@@ -281,7 +285,7 @@ class ShopController extends Controller
         $shop->save();
 
 
-        $shops = Shop::all();
+        $shops = Shop::paginate(5);
 
         return view('store_management', ['shops' => $shops]);
         
@@ -308,7 +312,7 @@ class ShopController extends Controller
 
         $shop->delete();
 
-        $shops = Shop::all();
+        $shops = Shop::paginate(5);
 
         return view('store_management', ['shops' => $shops]);
     }
