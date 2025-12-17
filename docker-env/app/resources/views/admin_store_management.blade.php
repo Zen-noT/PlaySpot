@@ -1,10 +1,10 @@
 @extends('layouts.admin_layout')
 @section('content_admin')
 
-<main>
+<main class="mt-5">
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="ms-2">承認済み店舗管理画面</h2>
-        <a href="{{ route('admin.approval.management') }}" class="btn btn-info mb-3 me-2">
+        <a href="{{ route('admin.approval.management') }}" class="btn btn-info mb-3 me-5">
             店舗承認待ち画面へ移動
         </a>
     </div>
@@ -45,6 +45,7 @@
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">
                                     <button type="submit" class="btn btn-warning me-2">承認取消</button>   
                                 </form>
+                                
                                 <form action="{{route('admin.store.deleate.form')}}" method="POST" class="mt-2">
                                     @csrf
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">

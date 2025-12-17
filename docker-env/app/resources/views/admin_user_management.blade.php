@@ -37,19 +37,34 @@
                                         <p class="p-m-not">メールアドレス: {{ $user-> email}}</p>
                                     </div>
                                     <div class="mb-0">
+                                        @if($user->profile)
+                                            <p class="p-m-not">プロフィール: {{ $user-> profile}}</p>
+                                        @else
+                                            <p class="p-m-not">プロフィール: 未設定</p>
+                                        @endif
+                                    </div>
+                                    <div class="mb-0">
                                         <p class="p-m-not">登録日: {{ $user-> created_at}}</p>
                                     </div> 
                                 </div>
 
                             </div>
-                            
-                            <form action="{{route('admin.user.deleate.form')}}" method="POST">
-                                @csrf
-                                <input id="userId" name="userId" type="hidden" value="{{ $user->id }}">
-                                <div>
-                                    <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
-                                </div>
-                            </form>
+                            <div>
+                                <form action="{{route('admin.user.update.form')}}" method="POST" class="d-inline">
+                                    @csrf
+                                    <input id="userId" name="userId" type="hidden" value="{{ $user->id }}">
+                                    <div>
+                                        <button type="submit"  class="btn btn-primary me-3 mb-3">ユーザー編集</button>
+                                    </div>
+                                </form>
+                                <form action="{{route('admin.user.deleate.form')}}" method="POST">
+                                    @csrf
+                                    <input id="userId" name="userId" type="hidden" value="{{ $user->id }}">
+                                    <div>
+                                        <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
+                                    </div>
+                                </form>
+                            </div>
                                 
                         </div>
                     </div>

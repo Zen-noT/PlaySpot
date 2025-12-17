@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-center">
                     <div class='card'>
                         <div class="card-header">
-                            <h2>新規登録</h2>
+                            <h2>新規登録申請</h2>
                         </div>
                         <form method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data" class="card-body">
 
@@ -66,7 +66,7 @@
 
                             <div class='mt-5 d-flex justify-content-center'>
                                 <button type="submit" class="btn btn-primary">
-                                    新規登録
+                                    新規登録申請
                                 </button>
                             </div>
                         </form>

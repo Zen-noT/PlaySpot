@@ -4,12 +4,17 @@
 <main>
     <div>
         <a href="{{route('shop.create')}}" class="btn btn-info ms-4 mt-4">
-            新規店舗登録
+            新規店舗登録申請
         </a>
         <a href="{{route('store.delete')}}" class="btn btn-secondary ms-4 mt-4">
             店舗ユーザー消去
         </a>
+        <a href="{{route('shop.approval')}}" class="btn btn-warning ms-4 mt-4">
+            承認待ち 店舗管理画面
+        </a>
     </div>
+
+    <h2 class="text-center mt-4">店舗管理画面</h2>
 
     <div class="container mt-4 py-2">
         @if($shops->isEmpty())

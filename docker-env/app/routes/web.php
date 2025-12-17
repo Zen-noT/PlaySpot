@@ -104,6 +104,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/shop/delete', [ShopController::class, 'shop_delete_form'])->name('shop.delete');
     Route::post('/shop/delete', [ShopController::class, 'shop_destroy'])->name('shop.delete.submit');
 
+    Route::get('/shop/approval', [ShopController::class, 'shop_approval'])->name('shop.approval');
+
 });
 
 Route::group(['middleware' => 'auth.admin'], function(){
@@ -134,7 +136,8 @@ Route::group(['middleware' => 'auth.admin'], function(){
     Route::post('/admin/store/approve/cancel/form', [AdminController::class, 'store_approve_cancel_form'])->name('admin.store.approve.cancel.form');
     Route::post('/admin/store/approve/cancel', [AdminController::class, 'store_approve_cancel'])->name('admin.store.approve.cancel.submit');
 
-
+    Route::post('/admin/user/update/form', [AdminController::class, 'user_update_form'])->name('admin.user.update.form');
+    Route::post('/admin/user/update', [AdminController::class, 'user_update'])->name('admin.user.update.submit');
 
 });
 

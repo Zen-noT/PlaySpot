@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\Evaluation;
+use Illuminate\Support\Facades\Storage;
 
 
 use Illuminate\Http\Request;
@@ -20,7 +21,7 @@ class AdminController extends Controller
 
         $query = User::query()
         ->where('role', 1)
-        ->select('id', 'name', 'email', 'created_at','icon');
+        ->select('id', 'name', 'email', 'created_at','icon', 'profile');
 
         $users = $query->paginate(5);
 
@@ -266,5 +267,40 @@ class AdminController extends Controller
         $store->save();
 
         return redirect()->route('admin.store.management')->with(['message' => '店舗の承認を取り消しました。']);
+    }
+    public function user_update_form(Request $request){
+        
+        $id = $request->userId;
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.user.management')->with('error', '指定されたユーザーが見つかりません。');
+        }
+
+        return view('admin_user_update', ['user' => $user]);
+    }
+    public function user_update(Request $request){
+        
+        $user = User::find($request->userId);
+
+        if (!$user) {
+            return redirect()->route('admin.user.management')->with('error', '指定されたユーザーが見つかりません。');
+        }
+
+        $user->name = $request->name;
+        $user->profile = $request->profile;
+        
+
+        if ($request->hasFile('icon_image')) {
+            Storage::delete('public/images/'. $user->icon);
+
+            $path = $request->file('icon_image')->store('public/images/');
+            $user->icon = basename($path);
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.user.management')->with(['message' => 'ユーザー情報を更新しました。']);
     }
 }

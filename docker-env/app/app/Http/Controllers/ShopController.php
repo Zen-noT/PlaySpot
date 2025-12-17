@@ -29,6 +29,7 @@ class ShopController extends Controller
 
 
         $query = Shop::query()
+        ->where('approval', 1)
         ->join('genres', 'shops.genre_id', '=', 'genres.id')
         ->join('waitingtimes', 'waitingtimes.shop_id', '=', 'shops.id') 
         ->select('shops.*', 'waitingtimes.waiting_img');
@@ -214,13 +215,14 @@ class ShopController extends Controller
             'evaluations as evaluations_avg_evaluation' => function ($query) {
                 $query->select(DB::raw('coalesce(avg(evaluation), 0)'));
             }
-        ])->paginate(5);
+        ])->where('approval', 1)->paginate(5);
 
         return view('store_management', ['shops' => $shops]);
 
     }
     public function show_home(){
         $query = Shop::query()
+        ->where('approval', 1)
         ->join('waitingtimes', 'waitingtimes.shop_id', '=', 'shops.id')
         ->select('shops.*', 'waitingtimes.waiting_img')
         ->orderBy('shops.created_at', 'desc');
@@ -333,5 +335,20 @@ class ShopController extends Controller
         $shops = Shop::paginate(5);
 
         return view('store_management', ['shops' => $shops]);
+    }
+
+    public function shop_approval(){
+
+        $user = Auth::user(); 
+
+        $shops = Shop::where('admin_user', $user->id)
+        ->withCount([
+            'evaluations as evaluations_avg_evaluation' => function ($query) {
+                $query->select(DB::raw('coalesce(avg(evaluation), 0)'));
+            }
+        ])->where('approval', 0)->paginate(5);
+
+        return view('shop_approval', ['shops' => $shops]);
+
     }
 }
