@@ -48,7 +48,7 @@
                         <div class="row">
                             <div class="d-flex align-items-center">
                                 <div class="col-md-2">
-                                    <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="120" height="120">
+                                    <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="150" height="150">
                                 </div>
                                 <div class="col-md-4">
                                     <a href="{{route('shops.detail',['shop'=> $shop->id ]) }}" >
@@ -78,9 +78,11 @@
                 </div>
             @endforeach
 
+            @if(method_exists($shops,'links'))
             <div class="d-flex justify-content-center mt-4">
                 {{ $shops->appends(request()->query())->links() }}
             </div>
+            @endif
 
         @endif
     

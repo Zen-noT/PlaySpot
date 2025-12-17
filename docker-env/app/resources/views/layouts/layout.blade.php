@@ -12,18 +12,19 @@
         <!-- jQuery読み込み -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        
         <!-- 読み込み高速化 -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <!-- グーグル提供のフォント -->
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         <!-- スタイルシート読み込み -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <!-- splidejs　読み込み　-->
+        <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
     </head>
     <body>
         
-        <header class="card navbar  navbar-light bg-light mt-1 mb-3 sticky-top">
+        <header class="card navbar  navbar-light bg-light mt-1  sticky-top">
             <div class="container justify-content-between ">
                 <div class="navbar-brand ">
                     <a href="{{ route('user.search') }}">
@@ -71,6 +72,10 @@
         @yield('content')
             
             
-       
+       <!-- Scripts -->
+        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+
+        
     </body>
 </html>

@@ -51,12 +51,24 @@ class AdminController extends Controller
     public function showStoreManagement(){
 
         $query = Shop::query()
+        ->where('approval', 1)
         ->join('users', 'shops.admin_user', '=', 'users.id')
         ->select('shops.*', 'users.name as user_name', 'users.email as user_email', 'users.id as user_id');
 
         $stores = $query->paginate(5);
 
         return view('admin_store_management', ['stores' => $stores]);
+    }
+    public function showShopApproval(){
+
+        $query = Shop::query()
+        ->where('approval', 0)
+        ->join('users', 'shops.admin_user', '=', 'users.id')
+        ->select('shops.*', 'users.name as user_name', 'users.email as user_email', 'users.id as user_id');
+
+        $stores = $query->paginate(5);
+
+        return view('admin_shop_approval', ['stores' => $stores]);
     }
 
     /**
@@ -210,5 +222,49 @@ class AdminController extends Controller
         $review->delete();
 
         return redirect()->route('admin.review.management')->with(['message' => 'レビューを削除しました。']);
+    }
+    public function store_approve_form(Request $request){
+        
+        $id = $request->storeId;
+
+        if (!$id) {
+            return redirect()->route('admin.approval.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        return view('admin_shop_approval_form', ['store' => $id]);
+    }
+    public function store_approve(Request $request){
+        
+        $store = Shop::find($request->storeId);
+        if (!$store) {
+            return redirect()->route('admin.approval.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        $store->approval = 1;
+        $store->save();
+
+        return redirect()->route('admin.approval.management')->with(['message' => '店舗を承認しました。']);
+    }
+    public function store_approve_cancel_form(Request $request){
+        
+        $id = $request->storeId;
+
+        if (!$id) {
+            return redirect()->route('admin.store.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        return view('admin_store_approvalCancel', ['store' => $id]);
+    }
+    public function store_approve_cancel(Request $request){
+        
+        $store = Shop::find($request->storeId);
+        if (!$store) {
+            return redirect()->route('admin.store.management')->with('error', '指定された店舗が見つかりません。');
+        }
+
+        $store->approval = 0;
+        $store->save();
+
+        return redirect()->route('admin.store.management')->with(['message' => '店舗の承認を取り消しました。']);
     }
 }

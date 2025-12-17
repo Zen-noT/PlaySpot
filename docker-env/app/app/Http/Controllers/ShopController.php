@@ -6,11 +6,11 @@ use App\Models\Shop;
 use App\Models\Genre;
 use App\Models\Waitingtime;
 use App\Models\Evaluation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
 
 class ShopController extends Controller
 {
@@ -81,8 +81,12 @@ class ShopController extends Controller
 
         $waitingtimes = Waitingtime::where('shop_id', $shop)->first();
 
-        $comment = Evaluation::where('shop_id', $shop)->get();
-        
+        $query = Evaluation::query()
+        ->where('shop_id', $shop)
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->select('evaluations.*', 'users.name as user_name','users.icon');
+
+        $comment = $query->paginate(3);
 
         return view('shop_detail', ['shop' => $shops,'avg' => $avg,'waitingtime' =>$waitingtimes, 'evaluations'=>$comment]);
     }
@@ -214,6 +218,20 @@ class ShopController extends Controller
 
         return view('store_management', ['shops' => $shops]);
 
+    }
+    public function show_home(){
+        $query = Shop::query()
+        ->join('waitingtimes', 'waitingtimes.shop_id', '=', 'shops.id')
+        ->select('shops.*', 'waitingtimes.waiting_img')
+        ->orderBy('shops.created_at', 'desc');
+
+        $shops = $query->paginate(5);
+
+        foreach ($shops as $shop) {
+            $shop->evaluations_avg = $shop->evaluations->avg('evaluation');
+        }
+
+        return view('search', ['shops' => $shops]);
     }
 
     /**

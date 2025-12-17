@@ -68,7 +68,7 @@ Route::prefix('reset')->group(function () {
 // 一般ユーザー権限
 Route::group(['middleware' => 'auth.members:members'], function() {
 
-    Route::get('/search', function () {return view('search');})->name('user.search');
+    Route::get('/search', [ShopController::class, 'show_home'])->name('user.search');
     Route::get('/shops', [ShopController::class, 'index'])->name('shops.search');
     Route::get('/mypage', function () {return view('mypage');})->name('user.mypage');
 
@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth.admin'], function(){
     Route::get('/admin/store_user/management', [AdminController::class, 'showStoreUserManagement'])->name('admin.store.user.management');
     Route::get('/admin/store/management', [AdminController::class, 'showStoreManagement'])->name('admin.store.management');
     Route::get('/admin/review/management', [AdminController::class, 'showReviewManagement'])->name('admin.review.management');
+    Route::get('/admin/review/approval', [AdminController::class, 'showShopApproval'])->name('admin.approval.management');
     
     Route::post('/admin/user/deleate/form', [AdminController::class, 'user_deleate_form'])->name('admin.user.deleate.form');
     Route::post('/admin/user/deleate', [AdminController::class, 'user_deleate'])->name('admin.user.deleate.submit');
@@ -126,6 +127,12 @@ Route::group(['middleware' => 'auth.admin'], function(){
 
     Route::post('/admin/review/deleate/form', [AdminController::class, 'review_deleate_form'])->name('admin.review.deleate.form');
     Route::post('/admin/review/deleate', [AdminController::class, 'review_deleate'])->name('admin.review.deleate.submit');
+
+    Route::post('/admin/store/approve/form', [AdminController::class, 'store_approve_form'])->name('admin.store.approve.form');
+    Route::post('/admin/store/approve', [AdminController::class, 'store_approve'])->name('admin.store.approve.submit');
+
+    Route::post('/admin/store/approve/cancel/form', [AdminController::class, 'store_approve_cancel_form'])->name('admin.store.approve.cancel.form');
+    Route::post('/admin/store/approve/cancel', [AdminController::class, 'store_approve_cancel'])->name('admin.store.approve.cancel.submit');
 
 
 
