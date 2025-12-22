@@ -34,7 +34,7 @@ class AdminController extends Controller
         ->join('shops', 'evaluations.shop_id', '=', 'shops.id')
         ->select('evaluations.*', 'users.name as user_name', 'shops.shop_name as shop_name','users.icon');
 
-        $reviews = $query->paginate(5);
+        $reviews = $query->paginate(10);
 
         return view('admin_review_management', ['reviews' => $reviews]);
     }

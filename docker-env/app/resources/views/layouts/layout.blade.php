@@ -24,23 +24,29 @@
     </head>
     <body>
         
-        <header class="card navbar  navbar-light bg-light mt-1  sticky-top">
-            <div class="container justify-content-between ">
-                <div class="navbar-brand ">
-                    <a href="{{ route('user.search') }}">
-                        <img src="{{ asset('storage/images/' .'PlaySpot_image.png') }}" alt="PlaySpot" width="80" height="80" />
-                    </a>
-                </div>
+        <header class="card navbar   mt-1  sticky-top">
+
+            <div class="container justify-content-between">
+                <a href="{{ route('user.search') }}" class="navbar-brand kurotai d-flex align-items-center">
+                    <img src="{{ asset('storage/images/' .'PlaySpot_image.png') }}" alt="PlaySpot" width="50" height="50" />
+                    <p class="mt-3 ms-2">待ち時間で検索できる　店舗検索サイト</p>
+                </a>
+
+                
+
                 <div class="align-items-center"> 
                     @if(Auth::check())
-                        <span style="font-size: 1.7rem;">{{ Auth::user()->name }}</span>
+                        <div class="d-flex align-items-center">
+                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="40" height="40" class="rounded-circle me-2">
+                            <span style="font-size: 1.7rem;" class="kuro mb-2">{{ Auth::user()->name }}</span>
 
-                        <a href="{{ route('user.mypage') }}" class="px-2">
-                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="80" height="80" class="rounded-circle">
+                            <a href="{{ route('user.mypage') }}" class="px-2">
+                            <img src="{{asset('storage/images/' . 'hanbarger-black.png' )}}" width="25" height="25" >
+
+                            <a href="#" id="logout" class="kuro"> ログアウト</a>
                         </a>
+                        </div>
                         
-
-                        <a href="#" id="logout" class="btn btn-dark"> ログアウト</a>
                         <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -52,7 +58,10 @@
                         </script>
                     @endif
                 </div>
-            </div>    
+            </div>   
+            
+            
+                          
         </header>
 
          <!-- バリデーションエラーの表示 -->

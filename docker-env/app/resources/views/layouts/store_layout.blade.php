@@ -34,7 +34,6 @@
                     @if(Auth::check())
                         <span style="font-size: 1.7rem;" class="m-2">店舗ユーザー：{{ Auth::user()->name }}</span>
 
-                        <a href="{{ route('store.management') }}" class="btn btn-info mb-2 mx-2">管理者ホーム</a>
                         <a href="#" id="logout" class="btn btn-dark mb-2"> ログアウト</a>
 
                         <form id="logout-form" action="{{ route('store.logout') }}" method="POST" style="display: none;">

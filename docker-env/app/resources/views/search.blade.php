@@ -32,7 +32,7 @@
 
                 <form action="{{route('shops.search')}}" method="GET" class="row d-flex justify-content-center">
                     @csrf
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <input type="text" name="location" id="location" value="{{ old('location') }}" class="form-control" placeholder="地域を入力">
                     </div>
                     <div class="col-md-3">
@@ -60,15 +60,17 @@
 
                 <div class="align-items-center"> 
                     @if(Auth::check())
-                        <span style="font-size: 1.7rem;" class="siro">{{ Auth::user()->name }}</span>
+                        <div class="d-flex align-items-center">
+                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="40" height="40" class="rounded-circle me-2">
+                            <span style="font-size: 1.7rem;" class="siro mb-2">{{ Auth::user()->name }}</span>
 
-                        <a href="{{ route('user.mypage') }}" class="px-2">
-                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="40" height="40" class="rounded-circle">
+                            <a href="{{ route('user.mypage') }}" class="px-2">
                             <img src="{{asset('storage/images/' . 'hanbarger.png' )}}" width="25" height="25" >
-                        </a>
-                        
 
-                        <a href="#" id="logout" class="siro"> ログアウト</a>
+                            <a href="#" id="logout" class="siro"> ログアウト</a>
+                        </a>
+                        </div>
+                        
                         <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

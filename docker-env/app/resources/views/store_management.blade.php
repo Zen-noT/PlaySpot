@@ -29,7 +29,7 @@
                                 <div class="col-md-2">
                                     <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="150" height="150" class="rounded">
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <h2>{{ $shop->shop_name }}</h2>
                                     <div>
                                         @if (!is_null($shop->evaluations_avg_evaluation))
@@ -39,11 +39,11 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-5">
                                     <form action="{{route('wait.time.submit')}}" method="POST"class="d-flex align-items-end " >
                                         @csrf
                                         <div class="m-2">
-                                            <label for="wait_img"class="form-label">待ち時間イメージ</label>
+                                            <label for="wait_img"class="form-label">混雑状況</label>
                                             <select name="wait_img" id="wait_img" class="form-select form-select-sm">
                                                 <option value="0">空いている</option>
                                                 <option value="1">やや混んでいる</option>
@@ -61,7 +61,7 @@
                                         <input id="shopId" name="shopId" type="hidden" value="{{ $shop->id }}">
 
                                         <div class="m-2">
-                                            <button type="submit" class="btn btn-info btn-sm ">更新</button>
+                                            <button type="submit" class="btn btn-info btn-m ">更新</button>
                                         </div>
                                     </form>
                                 </div>

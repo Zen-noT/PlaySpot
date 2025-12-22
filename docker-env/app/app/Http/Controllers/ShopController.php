@@ -86,8 +86,10 @@ class ShopController extends Controller
         ->where('shop_id', $shop)
         ->join('users', 'evaluations.user_id', '=', 'users.id')
         ->select('evaluations.*', 'users.name as user_name','users.icon');
+        
+        $query->orderBy('evaluations.created_at', 'desc');
 
-        $comment = $query->paginate(3);
+        $comment = $query->paginate(6);
 
         return view('shop_detail', ['shop' => $shops,'avg' => $avg,'waitingtime' =>$waitingtimes, 'evaluations'=>$comment]);
     }

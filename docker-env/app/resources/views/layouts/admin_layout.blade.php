@@ -35,7 +35,6 @@
 
                         <span style="font-size: 1.7rem;" class="m-2">管理者：{{ Auth::guard('admin')->user()->name }} ログイン中</span>
 
-                        <a href="{{ route('admin.home') }}" class="btn btn-info mb-2 mx-2">管理者ホーム</a>
 
                         <a href="#" id="logout" class="btn btn-dark me-0 mb-2" > ログアウト</a>
 

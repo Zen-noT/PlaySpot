@@ -2,8 +2,9 @@
 @section('content_admin')
 
 <main>
-    <h2>レビュー管理画面</h2>
-
+    <div class="m-5">
+        <h2>レビュー管理画面</h2>
+    </div>
     <div class="container mt-5 py-2">
         @if($reviews->isEmpty())
             <p>該当するレビューが見つかりませんでした。</p>
