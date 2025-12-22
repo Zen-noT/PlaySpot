@@ -10,12 +10,14 @@
                 <div class="card-body">
                     <form action="{{route('shops.search')}}" method="GET" class="row ">
                         @csrf
-                        <div >
-                            <input type="text" name="location" id="location" value="{{ old('location') }}" class="form-control" placeholder="地域を入力">
+                        <div>
+                            <label for="location" class="mt-1">地域を入力</label>
+                            <input type="text" name="location" id="location" value="{{ old('location') }}" class="form-control" placeholder="指定なし">
                         </div>
                         <div>
-                            <select name="genre" id="genre" class="form-control mt-3">
-                                <option value="">ジャンルを選択</option>
+                            <label for="genre" class="mt-1">ジャンルを選択</label>
+                            <select name="genre" id="genre" class="form-control mt-1">
+                                <option value="">指定なし</option>
                                 <option value="karaoke">カラオケ</option>
                                 <option value="darts" >ダーツ</option>
                                 <option value="bouling">ボウリング</option>
@@ -24,8 +26,9 @@
                             </select>
                         </div>
                         <div>
-                            <select name="congestion" id="congestion" class="form-control mt-3">
-                                <option value="">混雑具合を選択</option>
+                            <label for="congestion"class="mt-1">混雑具合を選択</label>
+                            <select name="congestion" id="congestion" class="form-control mt-1">
+                                <option value="">指定なし</option>
                                 <option value="0">空いているお店を検索</option>
                                 <option value="1">少し並んでも探したい</option>
                                 <option value="2">混んでいても探したい</option>

@@ -37,11 +37,19 @@
 
                             <p class="mb-0">登録日: {{ $review->created_at }}</p>
 
-                            <form action="{{route('admin.review.deleate.form')}}" method="POST">
-                                @csrf
-                                <input type="hidden" name="evaluationId" value="{{ $review->id }}">
-                                <button type="submit" class="btn btn-secondary">レビュー消去</button>
-                            </form>
+                            <div>
+                                <form action="{{route('admin.review.update.form')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="evaluationId" value="{{ $review->id }}">
+                                    <button type="submit" class="btn btn-info mb-1">レビュー編集</button>
+                                </form>
+
+                                <form action="{{route('admin.review.deleate.form')}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="evaluationId" value="{{ $review->id }}">
+                                    <button type="submit" class="btn btn-secondary">レビュー消去</button>
+                                </form>
+                            </div>
 
                         </div>
 

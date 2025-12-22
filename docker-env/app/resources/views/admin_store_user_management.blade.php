@@ -42,15 +42,23 @@
                                     </div> 
                                 </div>
                             </div>
-                            
-                            <form action="{{route('admin.store.user.deleate.form')}}" method="POST">
-                                @csrf
-                                <input id="userId" name="userId" type="hidden" value="{{ $store_user->id }}">
-                                <div>
-                                    <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
-                                </div>
-                            </form>
-                            
+                            <div>
+
+                                <form action="{{route('admin.store.user.update.form')}}" method="POST">
+                                    @csrf
+                                    <input id="userId" name="userId" type="hidden" value="{{ $store_user->id }}">
+                                    <div>
+                                        <button type="submit"  class="btn btn-info me-0 mb-2">ユーザー編集</button>
+                                    </div>
+                                </form>
+                                <form action="{{route('admin.store.user.deleate.form')}}" method="POST">
+                                    @csrf
+                                    <input id="userId" name="userId" type="hidden" value="{{ $store_user->id }}">
+                                    <div>
+                                        <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                             
                     </div>

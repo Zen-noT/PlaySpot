@@ -40,13 +40,18 @@
                             </div>
 
                             <div>
-                                <form action="{{route('admin.store.approve.cancel.form')}}" method="POST" class="d-inline me-1">
+                                <form action="{{route('admin.store.update.form')}}" method="POST" class="d-inline me-1">
+                                    @csrf
+                                    <input type="hidden" name="storeId" value="{{ $store->id }}">
+                                    <button type="submit" class="btn btn-info me-2">店舗編集</button>   
+                                </form>
+                                <form action="{{route('admin.store.approve.cancel.form')}}" method="POST" class=" me-1 mt-1">
                                     @csrf
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">
                                     <button type="submit" class="btn btn-warning me-2">承認取消</button>   
                                 </form>
                                 
-                                <form action="{{route('admin.store.deleate.form')}}" method="POST" class="mt-2">
+                                <form action="{{route('admin.store.deleate.form')}}" method="POST" class="mt-1">
                                     @csrf
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">
                                     <button type="submit" class="btn btn-secondary">店舗消去</button>

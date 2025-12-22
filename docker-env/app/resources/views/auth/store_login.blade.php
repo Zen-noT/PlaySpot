@@ -40,7 +40,7 @@
                 <div class="d-flex justify-content-center">
                     <div class='card'>
                         <div class="card-header">
-                            <h2>ログイン</h2>
+                            <h2>店舗ユーザーログイン</h2>
                         </div>
                         <form method="POST" action="{{ route('store.login.submit') }}"class="card-body">
                             @csrf

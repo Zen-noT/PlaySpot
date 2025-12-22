@@ -40,7 +40,7 @@
                 <div class="d-flex justify-content-center">
                     <div class='card'>
                         <div class="card-header">
-                            <h2>ログイン</h2>
+                            <h2>一般ユーザ ログイン</h2>
                         </div>
                         <form method="POST" action="{{ route('user.login.submit') }}"class="card-body">
                             @csrf

@@ -139,6 +139,15 @@ Route::group(['middleware' => 'auth.admin'], function(){
     Route::post('/admin/user/update/form', [AdminController::class, 'user_update_form'])->name('admin.user.update.form');
     Route::post('/admin/user/update', [AdminController::class, 'user_update'])->name('admin.user.update.submit');
 
+    Route::post('/admin/store_user/update/form', [AdminController::class, 'store_user_update_form'])->name('admin.store.user.update.form');
+    Route::post('/admin/store_user/update', [AdminController::class, 'store_user_update'])->name('admin.store.user.update.submit');
+
+    Route::post('/admin/store/update/form', [AdminController::class, 'store_update_form'])->name('admin.store.update.form');
+    Route::post('/admin/store/update', [AdminController::class, 'store_update'])->name('admin.store.update.submit');
+
+    Route::post('/admin/review/update/form', [AdminController::class, 'review_update_form'])->name('admin.review.update.form');
+    Route::post('/admin/review/update', [AdminController::class, 'review_update'])->name('admin.review.update.submit');
+
 });
 
 

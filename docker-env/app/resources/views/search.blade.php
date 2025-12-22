@@ -60,24 +60,54 @@
 
                 <div class="align-items-center"> 
                     @if(Auth::check())
-                        <div class="d-flex align-items-center">
-                            <img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="40" height="40" class="rounded-circle me-2">
-                            <span style="font-size: 1.7rem;" class="siro mb-2">{{ Auth::user()->name }}</span>
+                        <!-- ハンバーガーメニュー -->
+                        <button class="hamburger-menu" aria-label="メニューを開く">
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </button>
 
-                            <a href="{{ route('user.mypage') }}" class="px-2">
-                            <img src="{{asset('storage/images/' . 'hanbarger.png' )}}" width="25" height="25" >
+                        <nav class="slide-menu">
+                            <ul class="menu-list">
+                                <li><img src="{{asset('storage/images/' . Auth::user()->icon )}}" width="60" height="60" class="rounded-circle m-3">
+                                    <a href="{{ route('user.mypage') }}"> 
+                                        <span style="font-size: 1.7rem;" class="siro">{{ Auth::user()->name }}</span>
+                                    </a>
+                                </li>
 
-                            <a href="#" id="logout" class="siro"> ログアウト</a>
-                        </a>
-                        </div>
-                        
-                        <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                                <li><a href="#" id="logout" class="siro"> ログアウト</a></li>
+
+                                <form id="logout-form" action="{{ route('user.logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                
+                                <!-- <li><a href="#services">サービス</a></li>
+                                <li><a href="#contact">お問い合わせ</a></li> -->
+                            </ul>
+                        </nav>
+
                         <script>
                             document.getElementById('logout').addEventListener('click', function(event) {
                                 event.preventDefault();
                                 document.getElementById('logout-form').submit();
+                            });
+
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const hamburger = document.querySelector('.hamburger-menu');
+                                const slideMenu = document.querySelector('.slide-menu');
+                                
+                                hamburger.addEventListener('click', function() {
+                                    this.classList.toggle('active');
+                                    slideMenu.classList.toggle('active');
+                                });
+                                
+                                // メニュー外クリックで閉じる
+                                document.addEventListener('click', function(e) {
+                                    if (!hamburger.contains(e.target) && !slideMenu.contains(e.target)) {
+                                    hamburger.classList.remove('active');
+                                    slideMenu.classList.remove('active');
+                                    }
+                                });
                             });
                         </script>
                     @endif

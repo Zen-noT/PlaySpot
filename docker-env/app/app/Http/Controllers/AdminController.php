@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Shop;
 use App\Models\Evaluation;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -303,4 +304,135 @@ class AdminController extends Controller
 
         return redirect()->route('admin.user.management')->with(['message' => 'ユーザー情報を更新しました。']);
     }
+    public function store_user_update_form(Request $request){
+        
+        $id = $request->userId;
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect()->route('admin.user.management')->with('error', '指定されたユーザーが見つかりません。');
+        }
+
+        return view('admin_store_user_update', ['user' => $user]);
+    }
+    public function store_user_update(Request $request){
+        
+        $user = User::find($request->userId);
+
+        if (!$user) {
+            return redirect()->route('admin.user.management')->with('error', '指定されたユーザーが見つかりません。');
+        }
+
+        $user->name = $request->name;
+
+        $user->save();
+
+        return redirect()->route('admin.store.user.management')->with(['message' => 'ユーザー情報を更新しました。']);
+    }
+
+
+
+
+
+
+
+    public function store_update_form(Request $request){
+
+        $shopId = $request->storeId;
+        $shop = Shop::find($shopId);
+        $genre = Genre::find($shop->genre_id);
+
+        return view('admin_store_edit', ['shopId' => $shopId,'shop' =>$shop,'genre'=> $genre]);
+    }
+    public function store_update(Request $request){
+
+        $shop = Shop::find($request->shopId);
+
+        $shop->shop_name = $request->shop_name;
+        $shop->address = $request->address;
+        $shop->url = $request->url;
+        $shop->tell = $request->tell;
+        $shop->station = $request->station;
+
+        if($request->hasFile('shop_img')){
+
+            Storage::delete('public/images/'. $shop->shop_img);
+
+            $path = $request->file('shop_img')->store('public/images/');
+            $shop->shop_img = basename($path);
+        }
+
+        $genre = Genre::find($shop->genre_id);
+
+        if ($request->karaoke == '1') {
+            $genre->karaoke = 1;
+        } else {
+            $genre->karaoke = 0;
+        }
+
+        if ($request->darts == '1') {
+            $genre->darts = 1;
+        } else {
+            $genre->darts = 0;
+        }
+
+        if ($request->bouling == '1') {
+            $genre->bouling = 1;
+        } else {
+            $genre->bouling = 0;
+        }
+
+        if ($request->billiards == '1') {
+            $genre->billiards = 1;
+        } else {
+            $genre->billiards = 0;
+        }
+
+        $genre->save();
+        $shop->save();
+
+
+        $shops = Shop::paginate(5);
+
+        return view('admin_store_management', ['stores' => $shops]);
+    }
+    public function review_update_form(Request $request){
+
+        $evaluationId = $request->evaluationId;
+        $evaluation = Evaluation::find($evaluationId);
+        
+        return view('admin_review_update', ['evaluation' => $evaluation]);
+    }
+    public function review_update(Request $request){
+
+        $evaluation = Evaluation::find($request->evaluationId);
+
+        $evaluation->evaluation = $request->evaluation;
+        $evaluation->comment = $request->comment;
+
+        $evaluation->save();
+
+
+
+        $query = Evaluation::query()
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->join('shops', 'evaluations.shop_id', '=', 'shops.id')
+        ->select('evaluations.*', 'users.name as user_name', 'shops.shop_name as shop_name','users.icon');
+
+        $reviews = $query->paginate(10);
+
+        return view('admin_review_management', ['reviews' => $reviews]);
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
