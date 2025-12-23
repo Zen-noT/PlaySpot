@@ -208,20 +208,30 @@ class ShopController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show_management(){
+        
+        $user = Auth::user();
 
-        //$user = Auth::guard('stores')->user();
-        $user = Auth::user(); 
-
-        $shops = Shop::where('admin_user', $user->id)
-        ->withCount([
-            'evaluations as evaluations_avg_evaluation' => function ($query) {
-                $query->select(DB::raw('coalesce(avg(evaluation), 0)'));
-            }
-        ])->where('approval', 1)->paginate(5);
+        $shops = DB::table('shops')
+            ->leftJoin('evaluations', 'evaluations.shop_id', '=', 'shops.id')
+            ->leftJoin('waitingtimes', 'waitingtimes.shop_id', '=', 'shops.id')
+            ->where('shops.admin_user', $user->id)
+            ->where('shops.approval', 1)
+            ->groupBy(
+                'shops.id',
+                'waitingtimes.waiting_time',
+                'waitingtimes.waiting_img'
+            )
+            ->select(
+                'shops.*',
+                DB::raw('COALESCE(AVG(evaluations.evaluation), 0) as evaluations_avg_evaluation'),
+                'waitingtimes.waiting_time',
+                'waitingtimes.waiting_img'
+            )
+            ->paginate(5);
 
         return view('store_management', ['shops' => $shops]);
-
     }
+    
     public function show_home(){
         $query = Shop::query()
         ->where('approval', 1)

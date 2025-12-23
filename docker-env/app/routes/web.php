@@ -32,6 +32,9 @@ Route::get('/admin_login', [AdminLoginController::class, 'showAdminLoginForm'])-
 Route::post('/admin_login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
 Route::post('/logout/admin', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
+Route::get('/login/user/error', function () {return view('user_login_error');});
+Route::get('/login/store_user/error', function () {return view('store_login_error');});
+
 
 Route::prefix('create')->group(function () {
     // 新規登録画面

@@ -2,7 +2,7 @@
 @section('content_admin')
 
 <main>
-    <h2>一般ユーザー管理画面</h2>
+    <h2 class="text-center mt-5">一般ユーザー管理画面</h2>
 
     <div class="container mt-5 py-2">
         @if($users->isEmpty())
@@ -54,14 +54,14 @@
                                     @csrf
                                     <input id="userId" name="userId" type="hidden" value="{{ $user->id }}">
                                     <div>
-                                        <button type="submit"  class="btn btn-primary me-3 mb-3">ユーザー編集</button>
+                                        <button type="submit"  class="btn btn-info me-3 mb-3">ユーザー編集</button>
                                     </div>
                                 </form>
                                 <form action="{{route('admin.user.deleate.form')}}" method="POST">
                                     @csrf
                                     <input id="userId" name="userId" type="hidden" value="{{ $user->id }}">
                                     <div>
-                                        <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
+                                        <button type="submit"  class="btn btn-danger me-0">ユーザー消去</button>
                                     </div>
                                 </form>
                             </div>

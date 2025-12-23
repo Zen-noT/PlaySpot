@@ -34,8 +34,10 @@ class RoleLoginController extends Controller
         if (Auth::attempt(array_merge($credentials, ['role' => '0']))) {
 
             $request->session()->regenerate();
-            return redirect()->intended(route('store.management')); 
+            return redirect()->route('store.management'); 
 
+        }else{
+            return redirect('/login/store_user/error');
         }
 
         return redirect('/store_login')->withErrors(['error' => '無効なな承認情報です。']);

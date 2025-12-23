@@ -2,7 +2,7 @@
 @section('content_admin')
 
 <main>
-    <h2 class="mt-5">店舗ユーザー管理画面</h2>
+    <h2 class="mt-5 text-center">店舗ユーザー管理画面</h2>
 
     <div class="container mt-5 py-2">
         @if($store_users->isEmpty())
@@ -55,7 +55,7 @@
                                     @csrf
                                     <input id="userId" name="userId" type="hidden" value="{{ $store_user->id }}">
                                     <div>
-                                        <button type="submit"  class="btn btn-secondary me-0">ユーザー消去</button>
+                                        <button type="submit"  class="btn btn-danger me-0">ユーザー消去</button>
                                     </div>
                                 </form>
                             </div>

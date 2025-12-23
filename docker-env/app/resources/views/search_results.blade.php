@@ -15,7 +15,7 @@
                             <input type="text" name="location" id="location" value="{{ old('location') }}" class="form-control" placeholder="指定なし">
                         </div>
                         <div>
-                            <label for="genre" class="mt-1">ジャンルを選択</label>
+                            <label for="genre" class="mt-2">ジャンルを選択</label>
                             <select name="genre" id="genre" class="form-control mt-1">
                                 <option value="">指定なし</option>
                                 <option value="karaoke">カラオケ</option>
@@ -26,7 +26,7 @@
                             </select>
                         </div>
                         <div>
-                            <label for="congestion"class="mt-1">混雑具合を選択</label>
+                            <label for="congestion"class="mt-2">混雑具合を選択</label>
                             <select name="congestion" id="congestion" class="form-control mt-1">
                                 <option value="">指定なし</option>
                                 <option value="0">空いているお店を検索</option>

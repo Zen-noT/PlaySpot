@@ -37,7 +37,7 @@
                                             @csrf
                                             <input id="shopId" name="shopId" type="hidden" value="{{ $shop->id }}">
                                             <div>
-                                                <button type="submit"  class="btn btn-secondary ms-5 mt-4">店舗消去</button>
+                                                <button type="submit"  class="btn btn-danger ms-5 mt-4">店舗消去</button>
                                             </div>
                                         </form>
                                     </div>

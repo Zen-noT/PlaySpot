@@ -4,7 +4,7 @@
 <main>
     <div class="d-flex justify-content-between align-items-center">
         <h2>店舗承認待ち画面</h2>
-        <a href="{{ route('admin.store.management') }}" class="btn btn-info mb-3 me-2">
+        <a href="{{ route('admin.store.management') }}" class="btn btn-secondary mb-3 me-2">
             店舗管理画面へ移動
         </a>
     </div>
@@ -43,12 +43,12 @@
                                 <form action="{{route('admin.store.approve.form')}}" method="POST" class="mb-2">
                                     @csrf
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">
-                                    <button type="submit" class="btn btn-primary">店舗承認</button>
+                                    <button type="submit" class="btn btn-info">店舗承認</button>
                                 </form>
                                 <form action="{{route('admin.store.deleate.form')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="storeId" value="{{ $store->id }}">
-                                    <button type="submit" class="btn btn-secondary">店舗消去</button>
+                                    <button type="submit" class="btn btn-danger">店舗消去</button>
                                 </form>
                             </div>
                         </div>

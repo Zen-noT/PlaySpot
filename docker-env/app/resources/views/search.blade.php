@@ -27,7 +27,7 @@
         <header class="card navbar   mt-1  sticky-top kasane">
             <div class="container justify-content-between ">
                 <div class="navbar-brand sirotai">
-                    <p>待ち時間で検索できる　店舗検索サイト</p>
+                    <p>待ち時間で探せる　店舗検索サイト　PlaySpot</p>
                 </div>
 
                 <form action="{{route('shops.search')}}" method="GET" class="row d-flex justify-content-center">
@@ -74,6 +74,10 @@
                                         <span style="font-size: 1.7rem;" class="siro">{{ Auth::user()->name }}</span>
                                     </a>
                                 </li>
+
+                                <li><a href="?" id="?" class="siro"> メッセージ</a></li>
+                                <li><a href="?" id="?" class="siro"> マイリスト</a></li>
+                                <li><a href="?" id="?" class="siro"> お知らせ</a></li>
 
                                 <li><a href="#" id="logout" class="siro"> ログアウト</a></li>
 

@@ -2,7 +2,7 @@
 @section('content_admin')
 
 <main>
-    <div class="m-5">
+    <div class="m-5 text-center">
         <h2>レビュー管理画面</h2>
     </div>
     <div class="container mt-5 py-2">
@@ -47,7 +47,7 @@
                                 <form action="{{route('admin.review.deleate.form')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="evaluationId" value="{{ $review->id }}">
-                                    <button type="submit" class="btn btn-secondary">レビュー消去</button>
+                                    <button type="submit" class="btn btn-danger">レビュー消去</button>
                                 </form>
                             </div>
 

@@ -35,6 +35,8 @@ class UserLoginController extends Controller
                 Auth::guard('members')->logout();
                 return redirect()->route('user.login')->withErrors(['error' => '無効なユーザー権限です。']);
             }
+        }else{
+            return redirect('/login/user/error');
         }
         
 

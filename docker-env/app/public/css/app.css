@@ -13677,6 +13677,19 @@ textarea{
   transform: rotate(-45deg) translate(6px, -6px);
 }
 
+
+.hamburger-menu.active .hamburger-line-b:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+
+.hamburger-menu.active .hamburger-line-b:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line-b:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
 /* スライドメニュー */
 .slide-menu {
   position: fixed;
