@@ -30,7 +30,9 @@
                                     <img src="{{asset('storage/images/' . $shop->shop_img)}}" width="150" height="150" class="rounded">
                                 </div>
                                 <div class="col-md-3">
-                                    <h2>{{ $shop->shop_name }}</h2>
+                                    <a href="{{ route('store.shop.detail',['shopId' => $shop->id]) }}">
+                                        <h2>{{ $shop->shop_name }}</h2>
+                                    </a>
                                     <div>
                                         @if (!is_null($shop->evaluations_avg_evaluation))
                                             <p>平均評価: {{ number_format($shop->evaluations_avg_evaluation, 1) }} 点</p>

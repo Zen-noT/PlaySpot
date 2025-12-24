@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Shop;
 use App\Models\Evaluation;
 use App\Models\Genre;
+use App\Models\Waitingtime;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -424,7 +425,26 @@ class AdminController extends Controller
 
         return view('admin_review_management', ['reviews' => $reviews]);
     }
+    public function shop_detail($shopId){
 
+        $shops = Shop::where('id', $shopId)->first();
+
+        $avg = Evaluation::where('shop_id', $shopId)->avg('evaluation');
+
+        $waitingtimes = Waitingtime::where('shop_id', $shopId)->first();
+
+        $query = Evaluation::query()
+        ->where('shop_id', $shopId)
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->select('evaluations.*', 'users.name as user_name','users.icon');
+        
+        $query->orderBy('evaluations.created_at', 'desc');
+
+        $comment = $query->paginate(4);
+
+        return view('admin_shop_detail', ['shop' => $shops,'avg' => $avg,'waitingtime' =>$waitingtimes, 'evaluations'=>$comment]);
+
+    }
 
 
 

@@ -109,6 +109,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/shop/approval', [ShopController::class, 'shop_approval'])->name('shop.approval');
 
+    Route::get('/shop/detail/{shopId}', [ShopController::class, 'store_shop_detail'])->name('store.shop.detail');
+
 });
 
 Route::group(['middleware' => 'auth.admin'], function(){
@@ -151,6 +153,7 @@ Route::group(['middleware' => 'auth.admin'], function(){
     Route::post('/admin/review/update/form', [AdminController::class, 'review_update_form'])->name('admin.review.update.form');
     Route::post('/admin/review/update', [AdminController::class, 'review_update'])->name('admin.review.update.submit');
 
+    Route::get('/admin/shop/detail/{shopId}', [AdminController::class, 'shop_detail'])->name('admin.shop.detail');
 });
 
 

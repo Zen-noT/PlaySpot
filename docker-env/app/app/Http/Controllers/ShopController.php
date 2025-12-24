@@ -363,4 +363,23 @@ class ShopController extends Controller
         return view('shop_approval', ['shops' => $shops]);
 
     }
+    public function store_shop_detail($shopId){
+        
+        $shops = Shop::where('id', $shopId)->first();
+
+        $avg = Evaluation::where('shop_id', $shopId)->avg('evaluation');
+
+        $waitingtimes = Waitingtime::where('shop_id', $shopId)->first();
+
+        $query = Evaluation::query()
+        ->where('shop_id', $shopId)
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->select('evaluations.*', 'users.name as user_name','users.icon');
+        
+        $query->orderBy('evaluations.created_at', 'desc');
+
+        $comment = $query->paginate(4);
+
+        return view('store_shop_detail', ['shop' => $shops,'avg' => $avg,'waitingtime' =>$waitingtimes, 'evaluations'=>$comment]);
+    }
 }

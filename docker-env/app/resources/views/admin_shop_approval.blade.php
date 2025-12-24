@@ -26,8 +26,9 @@
                                 </div>
 
                                 <div style="min-width: 0;">
-                                    <h4 class="mb-1">{{ $store->shop_name }}</h4>
-
+                                    <a href="{{ route('admin.shop.detail',['shopId' => $store->id]) }}">
+                                        <h4 class="mb-1">{{ $store->shop_name }}</h4>
+                                </a>
                                     <p class="mb-0">店舗ID: {{ $store->id }}</p>
                                     <p class="mb-0">ユーザーID: {{ $store->user_id }}</p>
 
